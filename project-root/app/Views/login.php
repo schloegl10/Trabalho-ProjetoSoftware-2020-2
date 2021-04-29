@@ -55,7 +55,7 @@
 			height:40px;
 			margin-top: 15px;
 			margin-left: 107px;
-			margin-bottom: 20px;
+			margin-bottom: 35px;
 			background-color: #616161;
 			color: #ffffff;
 			border:none;
@@ -63,7 +63,7 @@
 			box-shadow: 2px 2px 2px black;
 
 		}
-		.singup {
+		a {
 			background-color: Transparent;
     		border: none;
 			font-size:15px;
@@ -71,7 +71,15 @@
 			font-family:"verdana";
 			padding-bottom:30px;
 			cursor:pointer;
-			margin-left: 147px;
+			margin-left: 90px;
+			
+		}
+		.erro {
+			color: red;
+			margin-top:10px;
+			margin-left:42px;
+			font-size: 15px;
+			width:315px;
 		}
 		
 	</style>
@@ -86,8 +94,8 @@
 		<p class="senha">Senha:</p>
 		<input class="senhainput" name="senha" id="senha" type="password" placeholder="senha" />
 		<button class="login" type="button">Login</button>
-		<p class="conta">Não tenho conta:<p>
-		<a href="/cadastro"><u>Cadastrar</u></a>
+		<a href="/cadastro"><u>Não tenho conta: Cadastrar</u></a>
+		<p class="erro" hidden>Senha/Email incorretos, tente novamente</p>
 	</div>
 
 
