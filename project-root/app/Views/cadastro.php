@@ -14,9 +14,9 @@
 			background-color: rgba(98, 211, 255, 0.1);
 		}
 		.centro {
-			background-color: rgba(49, 125, 255, 0.8);
+			background-color: rgba(210, 210, 210, 0.8);
 			width: 800px;
-			height: 400px;
+			height: 200px;
 			margin-top: 150px;
 			margin-left:calc(50% - 415px);
 			padding: 15px;
@@ -24,7 +24,7 @@
 			display:block;
 		}
 		p {
-			color: #ffffff;
+			color: black;
 			font-size:20px;
 			font-family:"verdana";
 			margin: 0px 0px 5px 0px;
@@ -46,8 +46,16 @@
 			text-decoration:none;
 		}
 		.estagiario {
-			margin-right: 25px;
-			margin-left:80px;
+			margin-right: 75px;
+			margin-left:260px;
+			height: 30px;
+			width: 100px;
+			cursor: pointer;
+		}
+		.empresa {
+			height: 30px;
+			width: 100px;
+			cursor: pointer;
 		}
 		.texto {
 			display: inline-block;
@@ -69,8 +77,12 @@
 			display: block;
 			width: 300px;
 		}
+		
 		.divEstagiario {
-			display: block;
+			padding-top: 20px;
+		}
+		.divEmpresa {
+			padding-top: 20px;
 		}
 		.observacao {
 			font-size: 12px;
@@ -82,11 +94,72 @@
 		}
 		.Curso {
 			width: 200px;
-			margin-right: 40px;
+			margin-right: 95px;
 		}
 		.Ano {
 			width: 200px;
+			margin-right: 15px;
 		}
+		.pessoaContato {
+			margin-right: 25px;
+		}
+		.endereco {
+			margin-right: 115px;
+		}
+		.TituloEst {
+			text-align: center;
+			font-size: 30px;
+		}
+		.TituloEmp {
+			text-align: center;
+			font-size: 30px;
+		}
+		.senha {
+			margin-right: 200px;
+		}
+		.selecao {
+			text-align: center;
+		}
+		.emailinput {
+			width:350px;
+			margin-right: 165px;
+		}
+		.senhainput {
+			width: 265px;
+		}
+		.confsenhainput {
+			width: 265px;
+		}
+		.nomeinput {
+			width: 240px;
+			
+		}
+		.cursoinput {
+			width: 240px;
+			margin-left: 40px;
+			margin-right: 40px;
+		}
+		.pessoaContatoinput {
+			width: 280px;
+			margin-left: 20px;
+			margin-right: 20px;
+		}
+		.anoinput {
+			width: 207px;
+		}
+		.enderecoinput {
+			width: 207px;
+		}
+		.curricinput {
+			width: 100%
+		}
+		.Registrar {
+			height: 30px;
+			width: 100px;
+			cursor: pointer;
+			float: right;
+		}
+		
 	</style>
 </head>
 
@@ -110,7 +183,9 @@
 		<p class="selecao">Selecione o tipo de conta que deseja criar:</p>
 		<button class="estagiario" type="button">Estagiário</button>
 		<button class="empresa" type="button">Empresa</button>
-		<div class="divEstagiario">
+		 
+		<div class="divEstagiario" hidden>
+			<p class="TituloEst">Estagiário</p>
 			<div class="texto">
 				<p style="float: left;" class="Nome">Nome:</p>
 				<p style="float: right;" class="Ano">Ano de ingresso:</p>
@@ -123,23 +198,24 @@
 			
 			</div>
 			<p class="Minicurriculo">Minicurriculo:</p>
-			<input class="curricinput" name="curriculo" id="curriculo" type="text" placeholder="Curriculo" />
+			<textarea class="curricinput" rows = "6" cols = "111" name = "description">Adicione um minicurriculo aqui...</textarea>
 		</div>
-		<div class="Empresa" hidden>
+		<div class="divEmpresa" hidden>
+			<p class="TituloEmp">Empresa</p>
 			<div class="texto">
-				<p class="Nome">Nome:</p>
-				<p class="endereco">Endereço:</p>
-				<p class="pessoaContato">Nome da pessoa de contato:</p>
+				<p style="float: left;" class="Nome">Nome:</p>
+				<p style="float: right;"class="endereco">Endereço:</p>
+				<p style="float: right;"class="pessoaContato">Nome da pessoa de contato:</p>
 			</div>
 			<div class="campo">
 				<input class="nomeinput" name="nome" id="nome" type="text" placeholder="Nome" />
-				<input class="enderecoinput" name="endereco" id="endereco" type="text" placeholder="Endereço" />
 				<input class="pessoaContatoinput" name="pessoaContato" id="pessoaContato" type="text" placeholder="Nome" />
+				<input class="enderecoinput" name="endereco" id="endereco" type="text" placeholder="Endereço" />
 			</div>
 			<p class="descricao">Descrição da empresa e produtos :</p>
-			<input class="descricaoinput" name="descricao" id="descricao" type="text" placeholder="Descricao" />
+			<textarea class="descinput" rows = "6" cols = "111" name = "description">Adicione uma breve descrição da empresa e seus produtos aqui...</textarea>
 		</div>
-		<button class="Registrar" type="button">Registrar</button>
+		<button hidden class="Registrar" type="button">Registrar</button>
 	</div>
 </body>
 </html>
