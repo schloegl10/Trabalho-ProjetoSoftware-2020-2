@@ -78,7 +78,7 @@
 		}
 		
 		.divEstagiario {
-			display:none;
+			
 			padding-top: 20px;
 		}
 		.divEmpresa {
@@ -171,8 +171,9 @@
 <body>
 	<div class="centro">
 		<p class="selecao">Selecione o tipo de conta que deseja criar:</p>
-			<button name="estagiario" onclick="est()" class="estagiario" type="button">Estagiário</button>
-			<button name="empresa" onclick="emp()" class="empresa" type="button">Empresa</button>
+		
+			<button onclick="estagiar()" class="estagiario">Estagiário</button>
+			<button onclick="emp()" class="empresa">Empresa</button>
 		<form class="" action="/cadastro" method="post">	
 			<div class="texto">
 				<p style="float: left;" class="email">Email:</p>
@@ -189,7 +190,7 @@
 				</div>
 				<p class="observacao">A senha deve conter: 6 ou + caracteres, 1 ou + letra maiúscula, caractere numérico e caractere especial</p>
 			</div>
-			<div class="divEstagiario" >
+			<div id="divEstagiario" style="display: none;" class="divEstagiario" >
 					<p class="TituloEst">Estagiário</p>
 					<div class="texto">
 						<p style="float: left;" class="Nome">Nome:</p>
@@ -205,7 +206,7 @@
 					<p class="Minicurriculo">Minicurriculo:</p>
 					<textarea name="curric" class="curricinput" rows = "6" cols = "111" name = "description">Adicione um minicurriculo aqui...</textarea>
 				</div>
-				<div class="divEmpresa">
+				<div id="divEmpresa" class="divEmpresa">
 					<p class="TituloEmp">Empresa</p>
 					<div class="texto">
 						<p style="float: left;" class="Nome">Nome:</p>
@@ -230,14 +231,18 @@
 				<button class="Registrar" type="submit">Registrar</button>
 		</form>
 	</div>
-	
+	<button onclick="myFunction()">Click me</button>
+	<p id="demo"></p>
 	<script>
-    function est(){
+	funcition myFunction() {
+		document.getElementById("demo").innerHTML = "Hello World";
+	}
+    function estagiar() {
    		document.getElementById("divEstagiario").style.display = "block";
 		document.getElementById("divEmpresa").style.display = "none";
 		document.getElementById("Registrar").style.display = "block";
     }
-	function emp(){
+	function emp() {
    		document.getElementById("divEmpresa").style.display = "block";
 		document.getElementById("divEstagiario").style.display = "none";
 		document.getElementById("Registrar").style.display = "block";
