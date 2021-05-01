@@ -2,12 +2,8 @@
 
 namespace App\Controllers;
 use CodeIgniter\Controller;
-
+use App\Models\UserModel;
 class Comeco extends Controller {
-    protected $session = [
-        'est' => false,
-        'emp' => false
-    ];
     public function index() {
         echo view('login');
     }
@@ -20,12 +16,10 @@ class Comeco extends Controller {
         if (($this->request->getMethod() == 'get') && (isset($_GET['estagiario']))) {
            $data['emp'] = false; 
            $data['est'] = true;
-           $this->session = $data;
         }
         if (($this->request->getMethod() == 'get') && (isset($_GET['empresa']))) {
             $data['emp'] = true; 
             $data['est'] = false;
-            $this->session = $data;
          }
         if ($this->request->getMethod() == 'post') {
             $rulesEst = [
@@ -40,7 +34,7 @@ class Comeco extends Controller {
             $rulesEmp = [
                 'nome' => 'required',
                 'email' => 'required|valid_email',
-                'senha' => 'required|min_length[6]|regex_match[A-Z]|regex_match[0-9]|regex_match[^0-9^A-Z^a-z^ ]',
+                'senha' => 'required|min_length[6]|regex_match[/[A-Z]/]|regex_match[/[0-9]/]|regex_match[/[^0-9^A-Z^a-z]/]',
                 'confsenha' => 'matches[senha]',
                 'endereco' => 'required',
                 'pessoaContato' => 'required',
@@ -50,13 +44,40 @@ class Comeco extends Controller {
                 if(! $this->validate($rulesEst)) {
                     $data['validation'] = $this-> validator;
                 }  else {
-                    //add est    
+                    $model = new UserModel();
+                    $newData = [
+                        'nome' => $this->request->getVar('nome'),
+                        'email' => $this->request->getVar('email'),
+                        'senha' => $this->request->getVar('senha'),
+                        'confsenha' => $this->request->getVar('confsenha'),
+                        'curso' => $this->request->getVar('curso'),
+                        'ano' => $this->request->getVar('ano'),
+                        'curriculo' => $this->request->getVar('curriculo'),
+                    ];
+                    $model->save($newData);
+				    $session = session();
+				    $session->setFlashdata('success', 'Successful Registration');
+				    return redirect()->to('/');
                 }
             } else if($data['emp'] = true) {
                 if(! $this->validate($rulesEmp)) {
                     $data['validation'] = $this->validator;
                 } else {
-                    //add emp    
+
+                    $newData = [
+                        'nome' => $this->request->getVar('nome'),
+                        'email' => $this->request->getVar('email'),
+                        'senha' => $this->request->getVar('senha'),
+                        'confsenha' => $this->request->getVar('confsenha'),                
+                        'pessoaContato' => $this->request->getVar('pessoaContato'),
+                        'descricao'=> $this->request->getVar('descricao'), 
+                        'endereco' => $this->request->getVar('endereco'),
+                    ];
+
+                    $model->save($newData);
+				    $session = session();
+				    $session->setFlashdata('success', 'Successful Registration');
+				    return redirect()->to('/');
                 }   
             }
         }
