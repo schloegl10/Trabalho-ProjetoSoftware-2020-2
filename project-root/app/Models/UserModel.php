@@ -3,12 +3,12 @@
 use CodeIgniter\Model;
 
 class UserModel extends Model{
-  protected $table = 'users';
-  protected $allowedFields = ['nome','email','senha','confsenha','endereco','pessoaContato','descricao','curso','ano','curriculo', 'updated_at'];
+  protected $table = 'Empresa';
+  protected $allowedFields = ['nome','email','senha','confsenha','endereco','pessoaContato','descricao', 'updated_at'];
   protected $beforeInsert = ['beforeInsert'];
   protected $beforeUpdate = ['beforeUpdate'];
 
-
+  //'curso','ano','curriculo'
   protected function beforeInsert(array $data){
     $data['data']['created_at'] = date('Y-m-d H:i:s');
 
