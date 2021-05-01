@@ -4,52 +4,56 @@ namespace App\Controllers;
 use CodeIgniter\Controller;
 
 class Comeco extends Controller {
-    
-	public function index() {
+    protected $session = [
+        'est' => false,
+        'emp' => false
+    ];
+    public function index() {
         echo view('login');
     }
     public function cadastro() {
-        $data = [
-            'est' => NULL,
-            'emp' => NULL
+        $data =   [
+            'est' => false,
+            'emp' => false
         ];
         helper(['form']);
         if (($this->request->getMethod() == 'get') && (isset($_GET['estagiario']))) {
            $data['emp'] = false; 
            $data['est'] = true;
+           $this->session = $data;
         }
         if (($this->request->getMethod() == 'get') && (isset($_GET['empresa']))) {
             $data['emp'] = true; 
             $data['est'] = false;
+            $this->session = $data;
          }
         if ($this->request->getMethod() == 'post') {
-            $rules = [
+            $rulesEst = [
+                'nome' => 'required',
+                'email' => 'required|valid_email',
+                'senha' => 'required|min_length[6]|regex_match[/[A-Z]/]|regex_match[/[0-9]/]|regex_match[/[^0-9^A-Z^a-z]/]',
+                'confsenha' => 'matches[senha]',
+                'curso' => 'required',
+                'ano' => 'required|numeric',
+                'curriculo' => 'required'
+            ];
+            $rulesEmp = [
                 'nome' => 'required',
                 'email' => 'required|valid_email',
                 'senha' => 'required|min_length[6]|regex_match[A-Z]|regex_match[0-9]|regex_match[^0-9^A-Z^a-z^ ]',
-                'confsenha' => 'matches[senha]'
-            ];
-            $rulesEst = [
-                'curso' => 'required',
-                'ano' => 'required|numeric',
-                'curric' => 'required'
-            ];
-            $rulesEmp = [
+                'confsenha' => 'matches[senha]',
                 'endereco' => 'required',
                 'pessoaContato' => 'required',
                 'descricao' => 'required'
-            ];  
-            if (! $this->validate($rules)) {
-				$data['validation'] = $this->validator;
-			}
-            if($data['est']) {
-                if((! $this->validate($rules)) || (! $this->validate($rulesEst))) {
+            ];
+            if($data['est'] = true) {
+                if(! $this->validate($rulesEst)) {
                     $data['validation'] = $this-> validator;
                 }  else {
                     //add est    
                 }
-            } else if($data['emp']) {
-                if((! $this->validate($rules)) || (! $this->validate($rulesEmp))) {
+            } else if($data['emp'] = true) {
+                if(! $this->validate($rulesEmp)) {
                     $data['validation'] = $this->validator;
                 } else {
                     //add emp    

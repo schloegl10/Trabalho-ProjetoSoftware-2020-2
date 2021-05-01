@@ -78,11 +78,9 @@
 		}
 		
 		.divEstagiario {
-			
 			padding-top: 20px;
 		}
 		.divEmpresa {
-			display:none;
 			padding-top: 20px;
 		}
 		.observacao {
@@ -159,7 +157,6 @@
 			width: 100px;
 			margin-top: 10px;
 			cursor: pointer;
-			display: none;
 		}
 		.alerta {
 			background: rgba(255, 110, 110, 1);;
@@ -171,9 +168,10 @@
 <body>
 	<div class="centro">
 		<p class="selecao">Selecione o tipo de conta que deseja criar:</p>
-		
-			<button onclick="estagiar()" class="estagiario">Estagiário</button>
-			<button onclick="emp()" class="empresa">Empresa</button>
+		<form class="" action="/cadastro" method="get">
+			<button id="estagiario" name="estagiario" class="estagiario" type="submit">Estagiário</button>
+			<button id="empresa" name="empresa" class="empresa" type="submit">Empresa</button>
+		</form>
 		<form class="" action="/cadastro" method="post">	
 			<div class="texto">
 				<p style="float: left;" class="email">Email:</p>
@@ -190,7 +188,8 @@
 				</div>
 				<p class="observacao">A senha deve conter: 6 ou + caracteres, 1 ou + letra maiúscula, caractere numérico e caractere especial</p>
 			</div>
-			<div id="divEstagiario" style="display: none;" class="divEstagiario" >
+			<?php if ($est): ?>
+			<div class="divEstagiario" >
 					<p class="TituloEst">Estagiário</p>
 					<div class="texto">
 						<p style="float: left;" class="Nome">Nome:</p>
@@ -198,15 +197,17 @@
 						<p style="float: right;" class="Curso">Curso:</p>
 					</div>
 					<div class="campo">
-						<input class="nomeinput" name="nome" id="nome" type="text" placeholder="Nome" />
-						<input class="cursoinput" name="curso" id="curso" type="text" placeholder="Curso" />
-						<input class="anoinput" name="ano" id="ano" type="text" placeholder="20XX" />
+						<input class="nomeinput" name="nome" id="nome" type="text" placeholder="Nome" value="<?= set_value('nome') ?>"/>
+						<input class="cursoinput" name="curso" id="curso" type="text" placeholder="Curso" value="<?= set_value('curso') ?>"/>
+						<input class="anoinput" name="ano" id="ano" type="text" placeholder="20XX" value="<?= set_value('ano') ?>"/>
 					
 					</div>
 					<p class="Minicurriculo">Minicurriculo:</p>
-					<textarea name="curric" class="curricinput" rows = "6" cols = "111" name = "description">Adicione um minicurriculo aqui...</textarea>
+					<textarea name="curriculo" class="curricinput" rows = "6" cols = "111" name = "description">Adicione um minicurriculo aqui...</textarea>
 				</div>
-				<div id="divEmpresa" class="divEmpresa">
+				<?php endif; ?>
+				<?php if ($emp): ?>
+				<div class="divEmpresa">
 					<p class="TituloEmp">Empresa</p>
 					<div class="texto">
 						<p style="float: left;" class="Nome">Nome:</p>
@@ -214,13 +215,14 @@
 						<p style="float: right;"class="pessoaContato">Nome da pessoa de contato:</p>
 					</div>
 					<div class="campo">
-						<input class="nomeinput" name="nome" id="nome" type="text" placeholder="Nome" />
-						<input class="pessoaContatoinput" name="pessoaContato" id="pessoaContato" type="text" placeholder="Nome" />
-						<input class="enderecoinput" name="endereco" id="endereco" type="text" placeholder="Endereço" />
+						<input class="nomeinput" name="nome" id="nome" type="text" placeholder="Nome" value="<?= set_value('nome') ?>"/>
+						<input class="pessoaContatoinput" name="pessoaContato" id="pessoaContato" type="text" placeholder="Nome" value="<?= set_value('pessoaContato') ?>"/>
+						<input class="enderecoinput" name="endereco" id="endereco" type="text" placeholder="Endereço" value="<?= set_value('endereco') ?>"/>
 					</div>
 					<p class="descricao">Descrição da empresa e produtos :</p>
 					<textarea nome="descricao" class="descinput" rows = "6" cols = "111" name = "description">Adicione uma breve descrição da empresa e seus produtos aqui...</textarea>
 				</div>
+				<?php endif; ?>
 			<?php if (isset($validation)): ?>
 				<div style="witdth: 100%;">
 					<div class="alerta" role="alert">
@@ -228,25 +230,10 @@
 					</div>
 				</div>
 			<?php endif; ?>
+			<?php if ($emp || $est): ?>
 				<button class="Registrar" type="submit">Registrar</button>
+			<?php endif; ?>
 		</form>
 	</div>
-	<button onclick="myFunction()">Click me</button>
-	<p id="demo"></p>
-	<script>
-	funcition myFunction() {
-		document.getElementById("demo").innerHTML = "Hello World";
-	}
-    function estagiar() {
-   		document.getElementById("divEstagiario").style.display = "block";
-		document.getElementById("divEmpresa").style.display = "none";
-		document.getElementById("Registrar").style.display = "block";
-    }
-	function emp() {
-   		document.getElementById("divEmpresa").style.display = "block";
-		document.getElementById("divEstagiario").style.display = "none";
-		document.getElementById("Registrar").style.display = "block";
-    }
-</script>
 </body>
 </html>
