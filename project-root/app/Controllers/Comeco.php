@@ -2,24 +2,30 @@
 
 namespace App\Controllers;
 use CodeIgniter\Controller;
-use App\Models\UserModel;
+use App\Models\estModel;
+use App\Models\empModel;
 class Comeco extends Controller {
+    protected $classData =   [
+        'est' => false,
+        'emp' => false
+    ];
     public function index() {
         echo view('login');
     }
     public function cadastro() {
-        $data =   [
-            'est' => false,
-            'emp' => false
-        ];
+        $session = session();
+        $session->set($this->classData);
+        $data = $session->get();
         helper(['form']);
         if (($this->request->getMethod() == 'get') && (isset($_GET['estagiario']))) {
            $data['emp'] = false; 
            $data['est'] = true;
+           $session->set($data);
         }
         if (($this->request->getMethod() == 'get') && (isset($_GET['empresa']))) {
             $data['emp'] = true; 
             $data['est'] = false;
+            $session->set($data);
          }
         if ($this->request->getMethod() == 'post') {
             $rulesEst = [
@@ -40,11 +46,15 @@ class Comeco extends Controller {
                 'pessoaContato' => 'required',
                 'descricao' => 'required'
             ];
-            if($data['est'] = true) {
+            if($data['est']) {
+                $this->classData = [
+                    'est' => true,
+                    'emp' => false
+                ];
                 if(! $this->validate($rulesEst)) {
                     $data['validation'] = $this-> validator;
                 }  else {
-                    $model = new UserModel();
+                    $estModel = new estModel();
                     $newData = [
                         'nome' => $this->request->getVar('nome'),
                         'email' => $this->request->getVar('email'),
@@ -53,16 +63,19 @@ class Comeco extends Controller {
                         'ano' => $this->request->getVar('ano'),
                         'curriculo' => $this->request->getVar('curriculo'),
                     ];
-                    $model->save($newData);
-				    $session = session();
+                    $estModel->save($newData);
 				    $session->setFlashdata('success', 'Successful Registration');
 				    return redirect()->to('/');
                 }
-            } else if($data['emp'] = true) {
+            } else if($data['emp']) {
+                $this->classData = [
+                    'est' => false,
+                    'emp' => true
+                ];
                 if(! $this->validate($rulesEmp)) {
                     $data['validation'] = $this->validator;
                 } else {
-
+                    $empModel = new empModel();
                     $newData = [
                         'nome' => $this->request->getVar('nome'),
                         'email' => $this->request->getVar('email'),
@@ -72,13 +85,13 @@ class Comeco extends Controller {
                         'endereco' => $this->request->getVar('endereco'),
                     ];
 
-                    $model->save($newData);
-				    $session = session();
+                    $empModel->save($newData);
 				    $session->setFlashdata('success', 'Successful Registration');
 				    return redirect()->to('/');
                 }   
             }
         }
+        $this->calssData = $session->get();
         echo view('cadastro', $data);
     }
 }
