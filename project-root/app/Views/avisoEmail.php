@@ -33,31 +33,27 @@
 			background-color: white;
     		border: none;
 			width: 250px;
-			font-size:30px;
+			font-size:20px;
 			display:inline-block;
-			height: 60px;
+			height: 40px;
 			margin: 0px;
 			box-shadow: 10px 10px 5px grey;
 			color: black;
 			font-family:"verdana";
 			cursor:pointer;
 			text-align: center;
-			padding-top:40px;
+			padding-top:10px;
+			margin-left: 290px;
 			text-decoration:none;
-		}
-		.estagiario {
-			margin-left: 40px;
-			margin-right:200px;
-			margin-bottom: 20px;
 		}
 	</style>
 </head>
 
 <body>
 	<div class="centro">
-		<p class="selecao">Selecione o tipo de conta que deseja criar:</p>
-		<a href="/cadastroEstagiario" id="estagiario" name="estagiario" class="estagiario" type="submit">Estagiário</a>
-		<a href="/cadastroEmpresa" id="empresa" name="empresa" class="empresa" type="submit">Empresa</a>
+		<p class="selecao">Sua conta foi criada e um email foi enviado para você:</p>
+		<a href="/" id="retorno" name="retorno" class="retorno" type="button">Retornar ao login</a>
+		
 	</div>
 </body>
 </html>

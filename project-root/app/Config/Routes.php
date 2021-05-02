@@ -34,6 +34,9 @@ $routes->setAutoRoute(true);
 // route since we don't have to scan directories.
 $routes->get('/', 'Comeco::index');
 $routes->match(['get','post'], 'cadastro', 'Comeco::cadastro');
+$routes->match(['get','post'], 'cadastroEstagiario', 'Comeco::cadastroEst');
+$routes->match(['get','post'], 'cadastroEmpresa', 'Comeco::cadastroEmp');
+$routes->match(['get','post'], 'avisoEmail', 'Comeco::avisoEmail');
 
 /*
  * --------------------------------------------------------------------

@@ -5,28 +5,19 @@ use CodeIgniter\Controller;
 use App\Models\estModel;
 use App\Models\empModel;
 class Comeco extends Controller {
-    protected $classData =   [
-        'est' => false,
-        'emp' => false
-    ];
     public function index() {
         echo view('login');
     }
     public function cadastro() {
+        echo view('cadastro');
+    }
+    public function avisoEmail() {
+        echo view('avisoEmail');
+    }
+    public function cadastroEst() {
+        $data = [];
         $session = session();
-        $session->set($this->classData);
-        $data = $session->get();
         helper(['form']);
-        if (($this->request->getMethod() == 'get') && (isset($_GET['estagiario']))) {
-           $data['emp'] = false; 
-           $data['est'] = true;
-           $session->set($data);
-        }
-        if (($this->request->getMethod() == 'get') && (isset($_GET['empresa']))) {
-            $data['emp'] = true; 
-            $data['est'] = false;
-            $session->set($data);
-         }
         if ($this->request->getMethod() == 'post') {
             $rulesEst = [
                 'nome' => 'required',
@@ -37,6 +28,42 @@ class Comeco extends Controller {
                 'ano' => 'required|numeric',
                 'curriculo' => 'required'
             ];
+            if(! $this->validate($rulesEst)) {
+                $data['validation'] = $this-> validator;
+            }  else {
+                $estModel = new estModel();
+                $newData = [
+                    'nome' => $this->request->getVar('nome'),
+                    'email' => $this->request->getVar('email'),
+                    'senha' => $this->request->getVar('senha'),
+                    'curso' => $this->request->getVar('curso'),
+                    'ano' => $this->request->getVar('ano'),
+                    'curriculo' => $this->request->getVar('curriculo'),
+                ];
+
+                $email = \Config\Services::email();
+                $message = "Sua conta está pronta para uso";
+                $email->setTo($newData['email']);
+                $email->setSubject('Sua conta no MOE foi criada');
+                $email->setMessage($message);       
+                $email->send();
+                $email->printDebugger(['headers']);
+                $estModel->save($newData);
+			    $session->setFlashdata('success', 'Successful Registration');
+               
+               
+				return redirect()->to('/avisoEmail');
+            }
+        }
+        $this->calssData = $session->get();
+        echo view('cadastroEst', $data);
+    }
+
+    public function cadastroEmp() {
+        $data = [];
+        $session = session();
+        helper(['form']);
+        if ($this->request->getMethod() == 'post') {
             $rulesEmp = [
                 'nome' => 'required',
                 'email' => 'required|valid_email',
@@ -46,52 +73,33 @@ class Comeco extends Controller {
                 'pessoaContato' => 'required',
                 'descricao' => 'required'
             ];
-            if($data['est']) {
-                $this->classData = [
-                    'est' => true,
-                    'emp' => false
+            if(! $this->validate($rulesEmp)) {
+                $data['validation'] = $this->validator;
+            } else {
+                $empModel = new empModel();
+                $newData = [
+                    'nome' => $this->request->getVar('nome'),
+                    'email' => $this->request->getVar('email'),
+                    'senha' => $this->request->getVar('senha'),
+                    'pessoaContato' => $this->request->getVar('pessoaContato'),
+                    'descricao'=> $this->request->getVar('descricao'),                         
+                    'endereco' => $this->request->getVar('endereco'),
                 ];
-                if(! $this->validate($rulesEst)) {
-                    $data['validation'] = $this-> validator;
-                }  else {
-                    $estModel = new estModel();
-                    $newData = [
-                        'nome' => $this->request->getVar('nome'),
-                        'email' => $this->request->getVar('email'),
-                        'senha' => $this->request->getVar('senha'),
-                        'curso' => $this->request->getVar('curso'),
-                        'ano' => $this->request->getVar('ano'),
-                        'curriculo' => $this->request->getVar('curriculo'),
-                    ];
-                    $estModel->save($newData);
-				    $session->setFlashdata('success', 'Successful Registration');
-				    return redirect()->to('/');
-                }
-            } else if($data['emp']) {
-                $this->classData = [
-                    'est' => false,
-                    'emp' => true
-                ];
-                if(! $this->validate($rulesEmp)) {
-                    $data['validation'] = $this->validator;
-                } else {
-                    $empModel = new empModel();
-                    $newData = [
-                        'nome' => $this->request->getVar('nome'),
-                        'email' => $this->request->getVar('email'),
-                        'senha' => $this->request->getVar('senha'),
-                        'pessoaContato' => $this->request->getVar('pessoaContato'),
-                        'descricao'=> $this->request->getVar('descricao'), 
-                        'endereco' => $this->request->getVar('endereco'),
-                    ];
-
-                    $empModel->save($newData);
-				    $session->setFlashdata('success', 'Successful Registration');
-				    return redirect()->to('/');
-                }   
+                $email = \Config\Services::email();
+                $email->setFrom('schloegl10@hotmail.com', 'Conformação de conta criada');
+                $email->setTo($newData['email']);
+                $email->setSubject('Sua conta no MOE foi criada e está pronta para ser usada.| MOE');
+                $email->setMessage($message);       
+                $email->send();
+                $email->printDebugger(['headers']);
+                $empModel->save($newData);
+				$session->setFlashdata('success', 'Successful Registration');
+                $message = "Sua conta está pronta para uso";
+                
+				return redirect()->to('/avisoEmail');   
             }
         }
         $this->calssData = $session->get();
-        echo view('cadastro', $data);
+        echo view('cadastroEmp', $data);
     }
 }
