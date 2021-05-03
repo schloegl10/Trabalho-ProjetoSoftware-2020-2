@@ -89,13 +89,17 @@
 <body>
 
 	<div class="centro">
-		<p class="email">Email:</p>
-		<input class="emailinput" name="email" id="email" type="text" placeholder="exmplo@exemplo.com" />
-		<p class="senha">Senha:</p>
-		<input class="senhainput" name="senha" id="senha" type="password" placeholder="senha" />
-		<button class="login" type="button">Login</button>
-		<a href="/cadastro"><u>Não tenho conta: Cadastrar</u></a>
-		<p class="erro" hidden>Senha/Email incorretos, tente novamente</p>
+		<form class="" action="/" method="post">
+			<p class="email">Email:</p>
+			<input class="emailinput" name="email" id="email" type="text" placeholder="exmplo@exemplo.com" />
+			<p class="senha">Senha:</p>
+			<input class="senhainput" name="senha" id="senha" type="password" placeholder="senha" />
+			<button class="login" type="submit">Login</button>
+			<a href="/cadastro"><u>Não tenho conta: Cadastrar</u></a>
+			<?php if (isset($validation)): ?>
+				<p class="erro" >Senha/Email incorretos, tente novamente</p>
+			<?php endif; ?>
+		</form>
 	</div>
 
 
