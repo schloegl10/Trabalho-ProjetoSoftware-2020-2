@@ -169,7 +169,26 @@
 			text-align: center;
 			font-size: 40px;
 		}
-		
+		.semestre {
+			
+		}
+		.horas {
+			margin-right: 100px;
+		}
+		.remuneracao {
+			margin-right: 50px;
+		}
+		.semestreinput {
+			width: 230px;
+			margin-right: 38px;
+		}
+		.horasinput {
+			width: 250px;
+			margin-right: 60px;
+		}
+		.remuneracaoinput {
+			width: 190px;
+		}
 	</style>
 </head>
 
@@ -222,13 +241,13 @@
 				<div class="divEmpresa">
 					<div class="texto">
 						<p style="float: left;" class="semestre">Semestre requerido:</p>
+						<p style="float: right;"class="remuneracao">Remuneração:</p>
 						<p style="float: right;"class="horas">Quantidade de horas:</p>
-						<p style="float: right;"class="remuneração">Remuneração:</p>
 					</div>
 					<div class="campo">
 						<input class="semestreinput" name="semestre" id="semestre" type="text" placeholder="Semestre" value="<?= set_value('semestre') ?>"/>
 						<input class="horasinput" name="horas" id="horas" type="text" placeholder="Horas" value="<?= set_value('horas') ?>"/>
-						<input class="remuneraçãoinput" name="remuneração" id="remuneração" type="text" placeholder="R$ XXXX,XX" value="<?= set_value('remuneração') ?>"/>
+						<input class="remuneracaoinput" name="remuneração" id="remuneração" type="text" placeholder="R$ XXXX,XX" value="<?= set_value('remuneração') ?>"/>
 					</div>
 					<p class="descricao">Descrição resumida da vaga:</p>
 					<textarea name="descricao" class="descinput" rows = "6" cols = "111">Adicione uma breve descrição da vaga...</textarea>
@@ -244,7 +263,7 @@
 					</div>
 				</div>
 			<?php endif; ?>
-			<button class="cadastrar" type="submit">Alterar</button>
+			<button class="cadastrar" type="submit">Cadastrar</button>
 		</form>
 	</div>
 	<div class='listaOportunidades'>
@@ -268,13 +287,13 @@
 						<input class="idinput" name="id" id="id" type="text" placeholder="ID" value="<?= set_value('id') ?>"/>
 					<div class="texto">
 						<p style="float: left;" class="semestre">Semestre requerido:</p>
+						<p style="float: right;"class="remuneracao">Remuneração:</p>
 						<p style="float: right;"class="horas">Quantidade de horas:</p>
-						<p style="float: right;"class="remuneração">Remuneração:</p>
 					</div>
 					<div class="campo">
 						<input class="semestreinput" name="semestre" id="semestre" type="text" placeholder="Semestre" value="<?= set_value('semestre') ?>"/>
 						<input class="horasinput" name="horas" id="horas" type="text" placeholder="Horas" value="<?= set_value('horas') ?>"/>
-						<input class="remuneraçãoinput" name="remuneração" id="remuneração" type="text" placeholder="R$ XXXX,XX" value="<?= set_value('remuneração') ?>"/>
+						<input class="remuneracaoinput" name="remuneração" id="remuneração" type="text" placeholder="R$ XXXX,XX" value="<?= set_value('remuneração') ?>"/>
 					</div>
 					<p class="descricao">Descrição resumida da vaga:</p>
 					<textarea name="descricao" class="descinput" rows = "6" cols = "111">Adicione uma breve descrição da vaga...</textarea>

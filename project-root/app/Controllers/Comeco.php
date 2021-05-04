@@ -34,17 +34,17 @@ class Comeco extends Controller {
                 $data['validation'] = $validation;
             } else if($estagiario && $senha == $estagiario['senha']) {
                 
-                $this->setUserMethod($estagiario, true);
+                $this->setUserSession($estagiario, true);
                 return redirect()->to('/Home/Estagiario');
             } else if($empresa && $senha == $empresa['senha']) {
-                $this->setUserMethod($empresa, false);
+                $this->setUserSession($empresa, false);
                 return redirect()->to('/Home/Empresa');
             } 
         }
         echo view('login', $data);
     }
 
-    private function setUserMethod($user, $estagiarioBool) {
+    private function setUserSession($user, $estagiarioBool) {
         $data = [
             'id' => $user['id'],
             'email' => $user['email'],

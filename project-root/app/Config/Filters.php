@@ -6,6 +6,8 @@ use CodeIgniter\Config\BaseConfig;
 use CodeIgniter\Filters\CSRF;
 use CodeIgniter\Filters\DebugToolbar;
 use CodeIgniter\Filters\Honeypot;
+use App\Filters\Autenticador;
+use App\Filters\Desautenticado;
 
 class Filters extends BaseConfig
 {
@@ -19,6 +21,11 @@ class Filters extends BaseConfig
 		'csrf'     => CSRF::class,
 		'toolbar'  => DebugToolbar::class,
 		'honeypot' => Honeypot::class,
+		'autenticador' => [
+			Autenticador::class,
+			isEstagiario::class,
+		],
+		'desautenticado' => Desautenticado::class,
 	];
 
 	/**
