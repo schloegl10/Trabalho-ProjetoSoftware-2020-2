@@ -38,8 +38,8 @@ $routes->match(['get','post'], 'cadastro', 'Comeco::cadastro');
 $routes->match(['get','post'], 'cadastroEstagiario', 'Comeco::cadastroEst');
 $routes->match(['get','post'], 'cadastroEmpresa', 'Comeco::cadastroEmp');
 $routes->match(['get','post'], 'avisoEmail', 'Comeco::avisoEmail');
-$routes->match(['get','post'], '/Home/Empresa', 'Home::homeEst');
-$routes->match(['get','post'], '/Home/Estagiario', 'Home::homeEmp');
+$routes->match(['get','post'], '/Home/Empresa', 'Home::homeEmp');
+$routes->match(['get','post'], '/Home/Estagiario', 'Home::homeEst');
 
 /*
  * --------------------------------------------------------------------

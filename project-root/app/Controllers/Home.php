@@ -6,9 +6,13 @@ use App\Models\estModel;
 use App\Models\empModel;
 class Home extends Controller {
     public function homeEst() {
-        echo view('HomeEst');
+        $data = [];
+        helper(['form']);
+        echo view('HomeEst', $data);
     }
     public function homeEmp() {
-        echo view('HomeEmp');
+        $data = [];
+        helper(['form']);
+        echo view('HomeEmp', $data);
     }
 }
