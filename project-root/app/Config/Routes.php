@@ -38,8 +38,9 @@ $routes->match(['get','post'], 'cadastro', 'Comeco::cadastro');
 $routes->match(['get','post'], 'cadastroEstagiario', 'Comeco::cadastroEst');
 $routes->match(['get','post'], 'cadastroEmpresa', 'Comeco::cadastroEmp');
 $routes->match(['get','post'], 'avisoEmail', 'Comeco::avisoEmail');
-$routes->match(['get','post'], '/Home/Empresa', 'Home::homeEmp', ['filter' => 'autenticador']);
-$routes->match(['get','post'], '/Home/Estagiario', 'Home::homeEst' , ['filter' => 'autenticador']);
+$routes->match(['get','post'], '/Empresa/Home', 'Empresa::homeEmp', ['filter' => 'autenticador']);
+$routes->match(['get','post'], '/Estagiario/Home', 'Estagiario::homeEst' , ['filter' => 'autenticador']);
+$routes->match(['get','post'], '/Estagiario/AlteraDados', 'Estagiario::alteraDados' , ['filter' => 'autenticador']);
 
 /*
  * --------------------------------------------------------------------

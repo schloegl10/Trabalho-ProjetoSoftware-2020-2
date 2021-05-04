@@ -12,6 +12,7 @@
 	<style {csp-style-nonce}>
 		body {
 			background-color: rgba(98, 211, 255, 0.1);
+            margin: 0px;
 		}
 		.alteraDados {
 			background-color: rgba(210, 210, 210, 0.8);
@@ -44,6 +45,39 @@
 			padding-top:40px;
 			text-decoration:none;
 		}
+        
+        .nav-link {
+            background-color: white;
+    		border: none;
+			width: 230px;
+			font-size:20px;
+			display:inline-block;
+			height: 40px;
+			margin: 0px;
+			box-shadow: none;
+			color: black;
+			font-family:"verdana";
+			cursor:pointer;
+			text-align: center;
+			padding-top:15px;
+			text-decoration:none;
+        }
+        .navbar-brand {
+            background-color: white;
+    		border: none;
+			width: 100px;
+			font-size:20px;
+			display:inline-block;
+			height: 40px;
+			margin: 0px;
+			box-shadow: none;
+			color: black;
+			font-family:"verdana";
+			cursor:pointer;
+			text-align: center;
+			padding-top:15px;
+			text-decoration:none;
+        }
 		.texto {
 			display: inline-block;
 			overflow: hidden;
@@ -129,54 +163,38 @@
 			text-align: center;
 			font-size: 40px;
 		}
+        .tituloSeguir {
+            text-align: center;
+            font-size: 30px;
+        }
+        .container {
+            background: white;
+            display: inline-block;
+            width: 100%;
+        }
+        .parar {
+            width: 150px;
+            height: 30px;
+            margin-top: 10px;
+        }
+        .lista {
+            background: rgba(200, 200, 200, 1);
+        }
 		
 	</style>
 </head>
 
-<body>
-	<div class="alteraDados">
-		<form class="" action="/cadastroEstagiario" method="post">	
-			<p class = 'tituloAlterarDados'>Alterar Dados</p>
-			<div class="texto">
-				<p style="float: left;" class="email">Email:</p>
-				<p style="float: right;" class="senha">Senha:</p>
-			</div>
-			<div class="campo">
-				<input class="emailinput" name="email" id="email" type="text"  value="<?= set_value('email') ?>" placeholder="exmplo@exemplo.com" />
-				<input class="senhainput" name="senha" id="senha" type="password" placeholder="senha"  value="<?= set_value('senha') ?>"/>
-			</div>
-			<div class="texto2">
-				<div class="campo2">
-					<p class="confsenha">Confirmação da Senha:</p>
-					<input class="confsenhainput" name="confsenha" id="confsenha" type="password" placeholder="senha" value="<?= set_value('confsenha') ?>"/>
-				</div>
-				<p class="observacao">A senha deve conter: 6 ou + caracteres, 1 ou + letra maiúscula, caractere numérico e caractere especial</p>
-			</div>
-			<div class="divEstagiario" >
-					<p class="TituloEst">Estagiário</p>
-					<div class="texto">
-						<p style="float: left;" class="Nome">Nome:</p>
-						<p style="float: right;" class="Ano">Ano de ingresso:</p>
-						<p style="float: right;" class="Curso">Curso:</p>
-					</div>
-					<div class="campo">
-						<input class="nomeinput" name="nome" id="nome" type="text" placeholder="Nome" value="<?= set_value('nome') ?>"/>
-						<input class="cursoinput" name="curso" id="curso" type="text" placeholder="Curso" value="<?= set_value('curso') ?>"/>
-						<input class="anoinput" name="ano" id="ano" type="text" placeholder="20XX" value="<?= set_value('ano') ?>"/>
-					
-					</div>
-					<p class="Minicurriculo">Minicurriculo:</p>
-					<textarea name="curriculo" class="curricinput" rows = "6" cols = "111">Adicione um minicurriculo aqui...</textarea>
-				</div>
-			<?php if (isset($validation)): ?>
-				<div style="witdth: 100%;">
-					<div class="alerta" role="alert">
-						<?= $validation->listErrors() ?>
-					</div>
-				</div>
-			<?php endif; ?>
-			<button class="Registrar" type="submit">Alterar</button>
-		</form>
-	</div>
-</body>
-</html>
+  <body>
+    <?php
+      $uri = service('uri');
+     ?>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <a style='float:left' class="navbar-brand" href="/">MOE</a>
+            <a style='float:left'class="nav-link" href="/Estagiario/Home">HOME</a>
+            <a style='float:left' class="nav-link"  href="/Estagiario/AlteraDados">Alterar Dados</a>
+            <a style='float:left'class="nav-link" href="/Estagiario/buscaOportunidade">Consultar Oportunidade</a>
+            <a style='float:left'class="nav-link" href="/Estagiario/buscaEmpresas">Consultar Empresas</a>
+            <a style='float:right'class="nav-link" href="/logout">Logout</a>
+        </div>
+    </nav>

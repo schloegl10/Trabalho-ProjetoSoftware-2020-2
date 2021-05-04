@@ -12,10 +12,10 @@ class IsEstagiario implements FilterInterface
     {
         $uri = service('uri');
 
-        if(session()->get('isEstagiario') == 1 && $uri->getSegment(2) != 'Estagiario') {
-            return redirect()->to('/Home/Estagiario');
-        } else if (session()->get('isEstagiario') == 0 && $uri->getSegment(2) != 'Empresa'){
-            return redirect()->to('/Home/Empresa');
+        if(session()->get('isEstagiario') == 1 && $uri->getSegment(1) != 'Estagiario') {
+            return redirect()->to('/Estagiario/Home');
+        } else if (session()->get('isEstagiario') == 0 && $uri->getSegment(1) != 'Empresa'){
+            return redirect()->to('/Empresa/Home');
         }
     }
 

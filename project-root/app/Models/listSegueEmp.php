@@ -3,8 +3,8 @@
 use CodeIgniter\Model;
 
 class estModel extends Model{
-  protected $table = 'seguidoresEmpresas';
-  protected $allowedFields = ['idEst','idEmp'];
+  protected $table = 'Estagiario';
+  protected $allowedFields = ['nome','email','senha','curso','ano','curriculo'];
   protected $beforeInsert = ['beforeInsert'];
   protected $beforeUpdate = ['beforeUpdate'];
 

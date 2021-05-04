@@ -4,15 +4,11 @@ namespace App\Controllers;
 use CodeIgniter\Controller;
 use App\Models\estModel;
 use App\Models\empModel;
-class Home extends Controller {
-    public function homeEst() {
-        $data = [];
-        helper(['form']);
-        echo view('HomeEst', $data);
-    }
+class Empresa extends Controller {
     public function homeEmp() {
         $data = [];
         helper(['form']);
-        echo view('HomeEmp', $data);
+        echo view('/Empresa/EmpresaHeader');
+        echo view('/Empresa/HomeEmp', $data);
     }
 }

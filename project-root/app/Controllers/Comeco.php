@@ -4,6 +4,7 @@ namespace App\Controllers;
 use CodeIgniter\Controller;
 use App\Models\estModel;
 use App\Models\empModel;
+use App\Controllers\Usuario;
 class Comeco extends Controller {
     public function index() {
         $data = [];
@@ -35,10 +36,10 @@ class Comeco extends Controller {
             } else if($estagiario && $senha == $estagiario['senha']) {
                 
                 $this->setUserSession($estagiario, 1);
-                return redirect()->to('/Home/Estagiario');
+                return redirect()->to('/Estagiario/Home');
             } else if($empresa && $senha == $empresa['senha']) {
                 $this->setUserSession($empresa, 0);
-                return redirect()->to('/Home/Empresa');
+                return redirect()->to('/Empresa/Home');
             } 
         }
         echo view('login', $data);
@@ -80,28 +81,8 @@ class Comeco extends Controller {
             if(! $this->validate($rulesEst)) {
                 $data['validation'] = $this-> validator;
             }  else {
-                $estModel = new estModel();
-                $newData = [
-                    'nome' => $this->request->getVar('nome'),
-                    'email' => $this->request->getVar('email'),
-                    'senha' => $this->request->getVar('senha'),
-                    'curso' => $this->request->getVar('curso'),
-                    'ano' => $this->request->getVar('ano'),
-                    'curriculo' => $this->request->getVar('curriculo'),
-                ];
-
-                $email = \Config\Services::email();
-                $message = "Sua conta está pronta para uso";
-                $email->setTo($newData['email']);
-                $email->setFrom('schl0egly0utube100@gmail.com', 'Your Name');    
-                $email->setSubject('Sua conta no MOE foi criada');
-                $email->setMessage($message);   
-                $email->send();
-                $estModel->save($newData);
-			    $session->setFlashdata('success', 'Successful Registration');
-               
-               
-				return redirect()->to('/avisoEmail');
+                Usuario::criaEstagiario($this->request);
+                return redirect()->to('/avisoEmail');
             }
         }
         echo view('cadastroEst', $data);
@@ -124,26 +105,8 @@ class Comeco extends Controller {
             if(! $this->validate($rulesEmp)) {
                 $data['validation'] = $this->validator;
             } else {
-                $empModel = new empModel();
-                $newData = [
-                    'nome' => $this->request->getVar('nome'),
-                    'email' => $this->request->getVar('email'),
-                    'senha' => $this->request->getVar('senha'),
-                    'pessoaContato' => $this->request->getVar('pessoaContato'),
-                    'descricao'=> $this->request->getVar('descricao'),                         
-                    'endereco' => $this->request->getVar('endereco'),
-                ];
-                $email = \Config\Services::email();
-                $email->setFrom('schloegl10@hotmail.com', 'Conformação de conta criada');
-                $email->setTo($newData['email']);
-                $email->setSubject('Sua conta no MOE foi criada e está pronta para ser usada.| MOE');
-                $email->setMessage($message);       
-                $email->send();
-                $empModel->save($newData);
-				$session->setFlashdata('success', 'Successful Registration');
-                $message = "Sua conta está pronta para uso";
-                
-				return redirect()->to('/avisoEmail');   
+                Usuario::criaEmpresa($this->request);
+                return redirect()->to('/avisoEmail');
             }
         }
         echo view('cadastroEmp', $data);

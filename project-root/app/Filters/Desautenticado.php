@@ -12,9 +12,9 @@ class Desautenticado implements FilterInterface
     {
         if(session()->get('isLoggedIn')) {
             if(session()->get('isEstagiario')) {
-                return redirect()->to('/Home/Estagiario');
+                return redirect()->to('/Estagiario/Home');
             } else {
-                return redirect()->to('/Home/Empresa');
+                return redirect()->to('/Empresa/Home');
             }
         }
     }
