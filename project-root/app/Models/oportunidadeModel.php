@@ -2,9 +2,9 @@
 
 use CodeIgniter\Model;
 
-class estModel extends Model{
-  protected $table = 'Estagiario';
-  protected $allowedFields = ['nome','email','senha','curso','ano','curriculo'];
+class oportunidadeModel extends Model{
+  protected $table = 'Oportunidades';
+  protected $allowedFields = ['semestre','remuneracao','horas','habilidades','atividades','descricao'];
   protected $beforeInsert = ['beforeInsert'];
   protected $beforeUpdate = ['beforeUpdate'];
 

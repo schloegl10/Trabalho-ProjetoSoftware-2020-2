@@ -49,7 +49,7 @@
         .nav-link {
             background-color: white;
     		border: none;
-			width: 230px;
+			width: 250px;
 			font-size:20px;
 			display:inline-block;
 			height: 40px;
@@ -179,6 +179,18 @@
         }
         .lista {
             background: rgba(200, 200, 200, 1);
+        }
+        .item {
+            width: 100%;
+        }
+        .item2 {
+            width: 100%;
+            height: 30px;
+            background: rgba(180, 180, 180, 1);
+        }
+        .tag {
+            margin-right: 5px;
+            font-size: 13px;
         }
 		
 	</style>

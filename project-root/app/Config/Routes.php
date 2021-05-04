@@ -41,6 +41,9 @@ $routes->match(['get','post'], 'avisoEmail', 'Comeco::avisoEmail');
 $routes->match(['get','post'], '/Empresa/Home', 'Empresa::homeEmp', ['filter' => 'autenticador']);
 $routes->match(['get','post'], '/Estagiario/Home', 'Estagiario::homeEst' , ['filter' => 'autenticador']);
 $routes->match(['get','post'], '/Estagiario/AlteraDados', 'Estagiario::alteraDados' , ['filter' => 'autenticador']);
+$routes->match(['get','post'], '/Estagiario/buscaEmpresas', 'Estagiario::ListEmpresas' , ['filter' => 'autenticador']);
+$routes->match(['get','post'], '/Estagiario/buscaOportunidade', 'Estagiario::ListOportunidades' , ['filter' => 'autenticador']);
+
 
 /*
  * --------------------------------------------------------------------

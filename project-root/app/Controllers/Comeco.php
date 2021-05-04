@@ -51,7 +51,8 @@ class Comeco extends Controller {
             'email' => $user['email'],
             'nome' => $user['nome'],
             'isLoggedIn' =>true,
-            'isEstagiario' => $estagiarioBool
+            'isEstagiario' => $estagiarioBool,
+            'idEmp' => 0,
         ];
 
         session()->set($data);

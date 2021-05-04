@@ -2,18 +2,18 @@
 
 use CodeIgniter\Model;
 
-class estModel extends Model{
-  protected $table = 'Estagiario';
-  protected $allowedFields = ['nome','email','senha','curso','ano','curriculo'];
+class listSegueEmp extends Model {
+  protected $table = 'seguidoresEmpresas';
+  protected $allowedFields = ['idEst','idEmp'];
   protected $beforeInsert = ['beforeInsert'];
   protected $beforeUpdate = ['beforeUpdate'];
 
   //'curso','ano','curriculo'
-  protected function beforeInsert(array $data){
+  protected function beforeInsert(array $data) {
     return $data;
   }
 
-  protected function beforeUpdate(array $data){
+  protected function beforeUpdate(array $data) {
     return $data;
   }
 
