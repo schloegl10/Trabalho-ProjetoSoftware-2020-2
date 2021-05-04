@@ -32,8 +32,8 @@ $routes->setAutoRoute(true);
 
 // We get a performance increase by specifying the default
 // route since we don't have to scan directories.
-$routes->get('', 'Comeco::index', ['filter' => 'desautenticado']);
-$routes->get('/', 'Comeco::index', ['filter' => 'desautenticado']);
+$routes->get('', 'Comeco::index');//, ['filter' => 'desautenticado']);
+$routes->get('/', 'Comeco::index');//, ['filter' => 'desautenticado']);
 $routes->match(['get','post'], 'cadastro', 'Comeco::cadastro');
 $routes->match(['get','post'], 'cadastroEstagiario', 'Comeco::cadastroEst');
 $routes->match(['get','post'], 'cadastroEmpresa', 'Comeco::cadastroEmp');

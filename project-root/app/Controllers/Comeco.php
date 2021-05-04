@@ -34,10 +34,10 @@ class Comeco extends Controller {
                 $data['validation'] = $validation;
             } else if($estagiario && $senha == $estagiario['senha']) {
                 
-                $this->setUserSession($estagiario, true);
+                $this->setUserSession($estagiario, 1);
                 return redirect()->to('/Home/Estagiario');
             } else if($empresa && $senha == $empresa['senha']) {
-                $this->setUserSession($empresa, false);
+                $this->setUserSession($empresa, 0);
                 return redirect()->to('/Home/Empresa');
             } 
         }

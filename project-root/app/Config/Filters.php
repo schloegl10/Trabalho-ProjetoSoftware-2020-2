@@ -8,6 +8,7 @@ use CodeIgniter\Filters\DebugToolbar;
 use CodeIgniter\Filters\Honeypot;
 use App\Filters\Autenticador;
 use App\Filters\Desautenticado;
+use App\Filters\IsEstagiario;
 
 class Filters extends BaseConfig
 {

@@ -6,14 +6,12 @@ use CodeIgniter\HTTP\RequestInterface;
 use CodeIgniter\HTTP\ResponseInterface;
 use CodeIgniter\Filters\FilterInterface;
 
-class IsEstagiario implements FilterInterface
+class Autenticador implements FilterInterface
 {
     public function before(RequestInterface $request, $arguments = null)
     {
-        if(session()->get('isEstagiario')) {
-            return redirect()->to('/Home/Estagiario');
-        } else {
-            return redirect()->to('/Home/Empresa');
+        if( !session()->get('isLoggedIn')) {
+            return redirect()->to('/');
         }
     }
 
