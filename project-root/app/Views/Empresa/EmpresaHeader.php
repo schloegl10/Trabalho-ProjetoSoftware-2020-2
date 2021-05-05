@@ -227,6 +227,22 @@
             display: inline-block;
             width: 100%;
         }
+		
+        .lista {
+            background: rgba(200, 200, 200, 1);
+        }
+        .item {
+            width: 100%;
+        }
+        .item2 {
+            width: 100%;
+            height: 30px;
+            background: rgba(180, 180, 180, 1);
+        }
+        .tag {
+            margin-right: 5px;
+            font-size: 13px;
+        }
         
 	</style>
 </head>

@@ -5,7 +5,8 @@
 				<p style='float:left' class='tag'>ID |</p>
 				<p style='float:left' class='tag'>Semestre |</p>
 				<p style='float:left' class='tag'>Remuneracao |</p>
-				<p style='float:left' class='tag'>Horas</p>
+				<p style='float:left' class='tag'>Horas |</p>
+				<p style='float:left' class='tag'>Empresa</p>
 		</div>
 		<div class='lista'>
 		<?php if (isset($oportunidades)): ?>
@@ -16,6 +17,7 @@
     			<?= $oportunidade['semestre'] ?>
 				<?= $oportunidade['remuneracao'] ?>
 				<?= $oportunidade['horas'] ?>
+				<?= $oportunidade['empresa']['nome'] ?>
 			</div>
     		<?php endforeach; ?>
 			
@@ -38,6 +40,10 @@
 		<?php if (isset($oportunidadeSelec)): ?>
 			<div style="witdth: 100%;">
 			<div class = 'item'>
+				<p class='tag'>Id empresa</p>
+				<?= $oportunidade['empresa']['id'] ?>
+				<p class='tag'>Nome empresa</p>
+				<?= $oportunidade['empresa']['nome'] ?>
 				<p class='tag'>Semestre</p>
 				<?= $oportunidadeSelec['semestre'] ?>
 				<p class='tag'>Remuneracao</p>

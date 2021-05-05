@@ -4,10 +4,37 @@ namespace App\Controllers;
 use CodeIgniter\Controller;
 use App\Models\estModel;
 use App\Models\empModel;
+use App\Models\listSegueEmp;
+use App\Models\oportunidadeModel;
 class Empresa extends Controller {
     public function homeEmp() {
         $data = [];
         helper(['form']);
+        $data = [];
+        helper(['form']);
+        $session = session();
+        $oportunidadeModel = new oportunidadeModel();
+        $listSegueEmp = new listSegueEmp();
+        $empModel = new empModel();
+        $userId = $session->get('id');
+        
+        $data['oportunidades'] = $oportunidadeModel->findAll();
+        for($i = 0; $i < count($data['oportunidades']); ++$i) {
+            $data['oportunidades'][$i]['empresa'] = $empModel->find($data['oportunidades'][$i]['idemp']);
+        }
+           
+        if ($this->request->getMethod() == 'post') {
+            $rulesEst = [
+                'idEmp' => 'required',
+            ];
+            if(! $this->validate($rulesEst)) {
+                $data['validation'] = $this-> validator;
+            } else {    
+                $data['oportunidadeSelec'] =  $oportunidadeModel->find($this->request->getVar('idEmp'));
+                $data['oportunidadeSelec']['empresa'] = $empModel->find($data['oportunidadeSelec']['idemp']);
+                $data['oportunidadeSelec']['nomeEmp'] = $data['oportunidadeSelec']['empresa']['nome'];
+            }
+        }
         echo view('/Empresa/EmpresaHeader');
         echo view('/Empresa/HomeEmp', $data);
     }

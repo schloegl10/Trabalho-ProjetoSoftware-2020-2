@@ -76,8 +76,13 @@ class Estagiario extends Controller {
         $session = session();
         $oportunidadeModel = new oportunidadeModel();
         $listSegueEmp = new listSegueEmp();
+        $empModel = new empModel();
         $userId = $session->get('id');
         $data['oportunidades'] = $oportunidadeModel->findAll();
+        for($i = 0; $i < count($data['oportunidades']); ++$i) {
+            $data['oportunidades'][$i]['empresa'] = $empModel->find($data['oportunidades'][$i]['idemp']);
+        }
+           
         if ($this->request->getMethod() == 'post') {
             $rulesEst = [
                 'idEmp' => 'required',
