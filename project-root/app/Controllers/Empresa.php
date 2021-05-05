@@ -8,8 +8,7 @@ use App\Models\listSegueEmp;
 use App\Models\oportunidadeModel;
 class Empresa extends Controller {
     public function homeEmp() {
-        $data = [];
-        helper(['form']);
+
         $data = [];
         helper(['form']);
         $session = session();
@@ -68,8 +67,6 @@ class Empresa extends Controller {
     public function alteraDados() {
         $data = [];
         helper(['form']);
-        $data = [];
-        helper(['form']);
         $session = session();
         $empModel = new empModel();
         $user = $empModel->find($session->get('id'));
@@ -105,12 +102,96 @@ class Empresa extends Controller {
     public function alteraOportunidade() {
         $data = [];
         helper(['form']);
+        $session = session();
+        $oportunidadeModel = new oportunidadeModel();
+        $data = ['oportunidade' => [
+            'id' => '',
+            'semestre' => '',
+            'remuneracao' => '',
+            'horas' => '',
+            'habilidades' => '',
+            'atividades' => '',
+            'descricao' => '',
+        ]];
+        if ($this->request->getMethod() == 'get') {
+            $rulesEst = [
+                'idOp' => 'required',
+            ];
+            if(! $this->validate($rulesEst)) {
+            } else {  
+                $oportu = $oportunidadeModel->find($this->request->getVar('idOp'));
+                $session->set('idOp', $this->request->getVar('idOp'));
+                $data = ['oportunidade' => [
+                    'id' => $this->request->getVar('idOp'),
+                    'semestre' => $oportu['semestre'],
+                    'remuneracao' => $oportu['remuneracao'],
+                    'horas' => $oportu['horas'],
+                    'habilidades' => $oportu['habilidades'],
+                    'atividades' => $oportu['atividades'],
+                    'descricao' => $oportu['descricao'],
+                ]];
+            }
+        }
+        if ($this->request->getMethod() == 'post') {
+            $rulesOp = [
+                'semestre' => 'required',
+                'remuneracao' => 'required|numeric',
+                'horas' => 'required|numeric',
+                'descricao' => 'required',
+                'atividades' => 'required',
+                'habilidades' => 'required',
+            ];
+            if(! $this->validate($rulesOp)) {
+                $data['validation'] = $this-> validator;
+            }  else {
+                $newData = [
+                    'id' => $session->get('idOp'),
+                    'idemp' => session()->get('id'),
+                    'semestre' => $this->request->getVar('semestre'),
+                    'remuneracao' => $this->request->getVar('remuneracao'),
+                    'horas' => $this->request->getVar('horas'),
+                    'descricao' => $this->request->getVar('descricao'),
+                    'atividades' => $this->request->getVar('atividades'),
+                    'habilidades' => $this->request->getVar('habilidades'),      
+                ];
+                $oportunidadeModel->save($newData);
+                return redirect()->to('/Empresa/alteraOportunidade');
+            }
+        }
         echo view('/Empresa/EmpresaHeader');
         echo view('/Empresa/alteraOportunidade', $data);
     }
     public function criaOportunidade() {
         $data = [];
+        $session = session();
         helper(['form']);
+        if ($this->request->getMethod() == 'post') {
+            $rulesOp = [
+                'semestre' => 'required',
+                'remuneracao' => 'required|numeric',
+                'horas' => 'required|numeric',
+                'descricao' => 'required',
+                'atividades' => 'required',
+                'habilidades' => 'required',
+            ];
+            if(! $this->validate($rulesOp)) {
+                $data['validation'] = $this->validator;
+            } else {
+                $oportunidadeModel = new oportunidadeModel();
+                $newData = [
+                    'idemp' => session()->get('id'),
+                    'semestre' => $this->request->getVar('semestre'),
+                    'remuneracao' => $this->request->getVar('remuneracao'),
+                    'horas' => $this->request->getVar('horas'),
+                    'descricao' => $this->request->getVar('descricao'),
+                    'atividades' => $this->request->getVar('atividades'),
+                    'habilidades' => $this->request->getVar('habilidades'),      
+                ];
+        
+                $oportunidadeModel->save($newData);
+                return redirect()->to('/Empresa/Home');
+            }
+        }
         echo view('/Empresa/EmpresaHeader');
         echo view('/Empresa/criaOportunidade', $data);
     }

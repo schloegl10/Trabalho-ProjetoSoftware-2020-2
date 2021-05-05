@@ -71,8 +71,6 @@ class Estagiario extends Controller {
     public function ListOportunidades() {
         $data = [];
         helper(['form']);
-        $data = [];
-        helper(['form']);
         $session = session();
         $oportunidadeModel = new oportunidadeModel();
         $listSegueEmp = new listSegueEmp();
