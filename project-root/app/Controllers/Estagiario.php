@@ -95,7 +95,35 @@ class Estagiario extends Controller {
     public function alteraDados() {
         $data = [];
         helper(['form']);
-        
+        $session = session();
+        $estModel = new estModel();
+        $user = $estModel->find($session->get('id'));
+        $data = ['user' => [
+            'id' => $user['id'],
+            'nome' => $user['nome'],
+            'senha' => $user['senha'],
+            'email' => $user['email'],
+            'ano' => $user['ano'],
+            'curso' => $user['curso'],
+            'curriculo' => $user['curriculo'],
+        ]];
+        if ($this->request->getMethod() == 'post') {
+            $rulesEst = [
+                'nome' => 'required',
+                'email' => 'required|valid_email',
+                //'senha' => 'required|min_length[6]|regex_match[/[A-Z]/]|regex_match[/[0-9]/]|regex_match[/[^0-9^A-Z^a-z]/]',
+                //'confsenha' => 'matches[senha]',
+                'curso' => 'required',
+                'ano' => 'required|numeric',
+                'curriculo' => 'required'
+            ];
+            if(! $this->validate($rulesEst)) {
+                $data['validation'] = $this-> validator;
+            }  else {
+                Usuario::alteraEstagiario($this->request);
+                return redirect()->to('/Estagiario/AlteraDados');
+            }
+        }
         echo view('/Estagiario/EstagioHeader');
         echo view('/Estagiario/alteraDados', $data);
     }

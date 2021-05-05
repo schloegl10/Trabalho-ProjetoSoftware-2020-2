@@ -11,4 +11,22 @@ class Empresa extends Controller {
         echo view('/Empresa/EmpresaHeader');
         echo view('/Empresa/HomeEmp', $data);
     }
+    public function alteraDados() {
+        $data = [];
+        helper(['form']);
+        echo view('/Empresa/EmpresaHeader');
+        echo view('/Empresa/alteraDados', $data);
+    }
+    public function alteraOportunidade() {
+        $data = [];
+        helper(['form']);
+        echo view('/Empresa/EmpresaHeader');
+        echo view('/Empresa/alteraOportunidade', $data);
+    }
+    public function criaOportunidade() {
+        $data = [];
+        helper(['form']);
+        echo view('/Empresa/EmpresaHeader');
+        echo view('/Empresa/criaOportunidade', $data);
+    }
 }
