@@ -112,4 +112,9 @@ class Comeco extends Controller {
         }
         echo view('cadastroEmp', $data);
     }
+
+    public function logout() {
+        session()->destroy();
+        return redirect()->to('/');
+    }
 }

@@ -34,6 +34,7 @@ $routes->setAutoRoute(true);
 // route since we don't have to scan directories.
 $routes->get('', 'Comeco::index');//, ['filter' => 'desautenticado']);
 $routes->get('/', 'Comeco::index');//, ['filter' => 'desautenticado']);
+$routes->get('/logout', 'Comeco::logout');
 $routes->match(['get','post'], 'cadastro', 'Comeco::cadastro');
 $routes->match(['get','post'], 'cadastroEstagiario', 'Comeco::cadastroEst');
 $routes->match(['get','post'], 'cadastroEmpresa', 'Comeco::cadastroEmp');
