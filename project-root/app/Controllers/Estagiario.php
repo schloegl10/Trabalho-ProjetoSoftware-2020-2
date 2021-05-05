@@ -111,8 +111,8 @@ class Estagiario extends Controller {
             $rulesEst = [
                 'nome' => 'required',
                 'email' => 'required|valid_email',
-                //'senha' => 'required|min_length[6]|regex_match[/[A-Z]/]|regex_match[/[0-9]/]|regex_match[/[^0-9^A-Z^a-z]/]',
-                //'confsenha' => 'matches[senha]',
+                'senha' => 'required|min_length[6]|regex_match[/[A-Z]/]|regex_match[/[0-9]/]|regex_match[/[^0-9^A-Z^a-z]/]',
+                'confsenha' => 'matches[senha]',
                 'curso' => 'required',
                 'ano' => 'required|numeric',
                 'curriculo' => 'required'

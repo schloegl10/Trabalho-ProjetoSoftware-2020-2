@@ -1,19 +1,19 @@
 
 	<div class="centro">
-		<form class="" action="/Home/Empresa" method="post">	
+		<form class="" action="/Empresa/AlteraDados" method="post">	
 			<p class = 'tituloAlterarDados'>Alterar Dados</p>
 			<div class="texto">
 				<p style="float: left;" class="email">Email:</p>
 				<p style="float: right;" class="senha">Senha:</p>
 			</div>
 			<div class="campo">
-				<input class="emailinput" name="email" id="email" type="text"  value="<?= set_value('email') ?>" placeholder="exmplo@exemplo.com" />
-				<input class="senhainput" name="senha" id="senha" type="password" placeholder="senha"  value="<?= set_value('senha') ?>"/>
+				<input class="emailinput" name="email" id="email" type="text"  value="<?= set_value('email', $user['email']) ?>" placeholder="exmplo@exemplo.com" />
+				<input class="senhainput" name="senha" id="senha" type="password" placeholder="senha"  value="<?= set_value('senha', $user['senha']) ?>"/>
 			</div>
 			<div class="texto2">
 				<div class="campo2">
 					<p class="confsenha">Confirmação da Senha:</p>
-					<input class="confsenhainput" name="confsenha" id="confsenha" type="password" placeholder="senha" value="<?= set_value('confsenha') ?>"/>
+					<input class="confsenhainput" name="confsenha" id="confsenha" type="password" placeholder="senha" value="<?= set_value('confsenha', $user['senha']) ?>"/>
 				</div>
 				<p class="observacao">A senha deve conter: 6 ou + caracteres, 1 ou + letra maiúscula, caractere numérico e caractere especial</p>
 			</div>
@@ -24,12 +24,12 @@
 						<p style="float: right;"class="pessoaContato">Nome da pessoa de contato:</p>
 					</div>
 					<div class="campo">
-						<input class="nomeinput" name="nome" id="nome" type="text" placeholder="Nome" value="<?= set_value('nome') ?>"/>
-						<input class="pessoaContatoinput" name="pessoaContato" id="pessoaContato" type="text" placeholder="Nome" value="<?= set_value('pessoaContato') ?>"/>
-						<input class="enderecoinput" name="endereco" id="endereco" type="text" placeholder="Endereço" value="<?= set_value('endereco') ?>"/>
+						<input class="nomeinput" name="nome" id="nome" type="text" placeholder="Nome" value="<?= set_value('nome', $user['nome']) ?>"/>
+						<input class="pessoaContatoinput" name="pessoaContato" id="pessoaContato" type="text" placeholder="Nome" value="<?= set_value('pessoaContato', $user['pessoaContato']) ?>"/>
+						<input class="enderecoinput" name="endereco" id="endereco" type="text" placeholder="Endereço" value="<?= set_value('endereco', $user['endereco']) ?>"/>
 					</div>
 					<p class="descricao">Descrição da empresa e produtos :</p>
-					<textarea name="descricao" class="descinput" rows = "6" cols = "111">Adicione uma breve descrição da empresa e seus produtos aqui...</textarea>
+					<textarea name="descricao" class="descinput" rows = "6" cols = "111"><?php if (isset($user['descricao'])): ?><?= $user['descricao'] ?><?php else: ?>Adicione uma breve descrição da empresa e seus produtos aqui...<?php endif; ?></textarea>
 				</div>
 			<?php if (isset($validation)): ?>
 				<div style="witdth: 100%;">

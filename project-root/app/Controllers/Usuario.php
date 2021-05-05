@@ -61,6 +61,17 @@ class Usuario extends Controller {
         $estModel->save($newData);
     }
     public static function alteraEmpresa($request) {
+        $empModel = new empModel();
+        $newData = [
+            'id' => session()->get('id'),
+            'nome' => $request->getVar('nome'),
+            'email' => $request->getVar('email'),
+            'senha' => $request->getVar('senha'),
+            'pessoaContato' => $request->getVar('pessoaContato'),
+            'descricao' => $request->getVar('descricao'),
+            'endereco' => $request->getVar('endereco'),
+        ];
 
+        $empModel->save($newData);
     }
 }
