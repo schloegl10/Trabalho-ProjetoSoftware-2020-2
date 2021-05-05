@@ -16,9 +16,14 @@ class Empresa extends Controller {
         $oportunidadeModel = new oportunidadeModel();
         $listSegueEmp = new listSegueEmp();
         $empModel = new empModel();
-        $userId = $session->get('id');
-        
-        $data['oportunidades'] = $oportunidadeModel->findAll();
+        $userId = $session->get('id'); 
+        $data['oportunidades'] = $oportunidadeModel->where('idemp', $userId)->find();
+        $estModel = new estModel();
+        $estagiarioIds = $listSegueEmp->where('idEmp',  $userId)->findAll();
+        $estagiarioNaLista = false;
+        for($i = 0; $i < count($estagiarioIds); ++$i) {
+            $data['estagiarios'][$i] = $estModel->find($estagiarioIds[$i]['idEst']);
+        }
         for($i = 0; $i < count($data['oportunidades']); ++$i) {
             $data['oportunidades'][$i]['empresa'] = $empModel->find($data['oportunidades'][$i]['idemp']);
         }
@@ -28,11 +33,33 @@ class Empresa extends Controller {
                 'idEmp' => 'required',
             ];
             if(! $this->validate($rulesEst)) {
-                $data['validation'] = $this-> validator;
-            } else {    
-                $data['oportunidadeSelec'] =  $oportunidadeModel->find($this->request->getVar('idEmp'));
-                $data['oportunidadeSelec']['empresa'] = $empModel->find($data['oportunidadeSelec']['idemp']);
-                $data['oportunidadeSelec']['nomeEmp'] = $data['oportunidadeSelec']['empresa']['nome'];
+                $data['validationOp'] = $this-> validator;
+            } else {  
+                if(null !== $oportunidadeModel->where('idemp', $userId)->find($this->request->getVar('idEmp')))  {
+                    $data['oportunidadeSelec'] =  $oportunidadeModel->where('idemp', $userId)->find($this->request->getVar('idEmp'));
+                    $data['oportunidadeSelec']['empresa'] = $empModel->find($userId);
+                    $data['oportunidadeSelec']['nomeEmp'] = $data['oportunidadeSelec']['empresa']['nome'];
+                }
+            }
+        }
+
+        if ($this->request->getMethod() == 'get') {
+            $rulesEst = [
+                'idEst' => 'required',
+            ];
+            if(! $this->validate($rulesEst)) {
+                $data['validationEst'] = $this-> validator;
+            } else {  
+                for($i = 0; $i < count($data['estagiarios']); ++$i) {
+                    if($this->request->getVar('idEst') == $data['estagiarios'][$i]['id']) {
+                        $estagiarioNaLista = true;
+                    }
+                }
+                if($estagiarioNaLista) {
+                    if(null !== $estModel->find($this->request->getVar('idEst')))  {
+                        $data['estagSelec'] =  $estModel->find($this->request->getVar('idEst'));
+                    }
+                }
             }
         }
         echo view('/Empresa/EmpresaHeader');
