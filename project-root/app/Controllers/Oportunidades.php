@@ -3,8 +3,14 @@
 namespace App\Controllers;
 use CodeIgniter\Controller;
 use App\Models\estModel;
-class Usuario extends Controller {
+use App\Models\listSegueEmp;
+use App\Models\oportunidadeModel;
+class Oportunidades extends Controller {
     public static function criaOportunidade($request) {
+        $listSegueEmp = new listSegueEmp();
+        $estModel = new estModel();
+        $oportunidadeModel = new oportunidadeModel();
+        $session = session();
         $newData = [
             'idemp' => session()->get('id'),
             'semestre' => $request->getVar('semestre'),
@@ -30,7 +36,8 @@ class Usuario extends Controller {
          }
     }
     public static function alteraOportunidade($request) {
-        $sessuib = session();
+        $oportunidadeModel = new oportunidadeModel();
+        $session = session();
         $newData = [
             'id' => $session->get('idOp'),
             'idemp' => session()->get('id'),
