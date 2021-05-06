@@ -31,7 +31,7 @@ class Oportunidades extends Controller {
              $email->setFrom('schloegl10@hotmail.com', 'MOE');
              $email->setTo($seguidor['email']);
              $email->setSubject('Nova oportunidade de estágio| MOE');
-             $email->setMessage($message);       
+             $email->setMessage($message);
              $email->send();
          }
     }

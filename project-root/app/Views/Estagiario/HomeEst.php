@@ -41,8 +41,14 @@
 			<?php endif; ?>
 			<p class="confsenha">Id empresa:</p>
 			<input class="idEmpinput" name="idEmp" id="idEmp" type="text" placeholder="ID"/>
-			<button class="parar" type="submit">Parar de Seguir</button>
+			<button class="parar"  onclick="return confirmDelete();" type="submit">Parar de Seguir</button>
+			<script type="text/javascript">
+    		function confirmDelete() {
+        		return confirm('Você tem certeza que deseja parar de seguir essa empresa?');
+    		}
+			</script>
 		</form>
 	</div>
+
 </body>
 </html>
