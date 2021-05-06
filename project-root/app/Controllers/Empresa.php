@@ -6,6 +6,7 @@ use App\Models\estModel;
 use App\Models\empModel;
 use App\Models\listSegueEmp;
 use App\Models\oportunidadeModel;
+use App\Controllers\Oportunidades;
 class Empresa extends Controller {
     public function homeEmp() {
 
@@ -144,17 +145,7 @@ class Empresa extends Controller {
             if(! $this->validate($rulesOp)) {
                 $data['validation'] = $this-> validator;
             }  else {
-                $newData = [
-                    'id' => $session->get('idOp'),
-                    'idemp' => session()->get('id'),
-                    'semestre' => $this->request->getVar('semestre'),
-                    'remuneracao' => $this->request->getVar('remuneracao'),
-                    'horas' => $this->request->getVar('horas'),
-                    'descricao' => $this->request->getVar('descricao'),
-                    'atividades' => $this->request->getVar('atividades'),
-                    'habilidades' => $this->request->getVar('habilidades'),      
-                ];
-                $oportunidadeModel->save($newData);
+                Oportunidades::alteraOportunidade($this->request);
                 return redirect()->to('/Empresa/alteraOportunidade');
             }
         }
@@ -180,29 +171,7 @@ class Empresa extends Controller {
                 $data['validation'] = $this->validator;
             } else {
                 $oportunidadeModel = new oportunidadeModel();
-                $newData = [
-                    'idemp' => session()->get('id'),
-                    'semestre' => $this->request->getVar('semestre'),
-                    'remuneracao' => $this->request->getVar('remuneracao'),
-                    'horas' => $this->request->getVar('horas'),
-                    'descricao' => $this->request->getVar('descricao'),
-                    'atividades' => $this->request->getVar('atividades'),
-                    'habilidades' => $this->request->getVar('habilidades'),      
-                ];
-                $estagiariosIds = $listSegueEmp->where('idEmp', session()->get('id'))->findAll();
-                for($i = 0; $i < count($estagiariosIds); ++$i) {
-                    $seguidores[$i] = $estModel->find($estagiariosIds[$i]['idEst']);
-                }
-                $oportunidadeModel->save($newData);
-                 foreach($seguidores as $seguidor) {
-                     $message = "A empresa".$session->get('nome')."criou uma nova oportunidade de estágio vá lá ver";
-                     $email = \Config\Services::email();
-                     $email->setFrom('schloegl10@hotmail.com', 'MOE');
-                     $email->setTo($seguidor['email']);
-                     $email->setSubject('Nova oportunidade de estágio| MOE');
-                     $email->setMessage($message);       
-                     $email->send();
-                 }
+                Oportunidades::criaOportunidade($this->request);
                 return redirect()->to('/Empresa/Home');
             }
         }
