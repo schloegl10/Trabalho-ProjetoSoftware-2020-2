@@ -26,7 +26,6 @@ class Comeco extends Controller {
                       ->first();
             $empresa = $empModel-> where('email', $this->request->getVar('email'))
                       ->first();
-                      echo $senha; 
             if(!$estagiario && !$empresa) {
                 $data['validation'] = $validation;
             } else if($estagiario && $senha != $estagiario['senha']) {
@@ -34,12 +33,15 @@ class Comeco extends Controller {
             } else if($empresa && $senha != $empresa['senha']) {
                 $data['validation'] = $validation;
             } else if($estagiario && $senha == $estagiario['senha']) {
-                
+                if($estagiario['autenticado'] == 't') {
                 $this->setUserSession($estagiario, 1);
                 return redirect()->to('/Estagiario/Home');
+                }
             } else if($empresa && $senha == $empresa['senha']) {
+                if($estagiario['autenticado']  == 't') {
                 $this->setUserSession($empresa, 0);
                 return redirect()->to('/Empresa/Home');
+                }
             } 
         }
         echo view('login', $data);

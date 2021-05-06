@@ -4,7 +4,7 @@ use CodeIgniter\Model;
 
 class estModel extends Model{
   protected $table = 'Estagiario';
-  protected $allowedFields = ['nome','email','senha','curso','ano','curriculo'];
+  protected $allowedFields = ['nome','email','senha','curso','ano','curriculo','autenticado'];
   protected $beforeInsert = ['beforeInsert'];
   protected $beforeUpdate = ['beforeUpdate'];
 

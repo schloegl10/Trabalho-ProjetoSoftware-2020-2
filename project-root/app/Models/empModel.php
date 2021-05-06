@@ -4,7 +4,7 @@ use CodeIgniter\Model;
 
 class empModel extends Model{
   protected $table = 'Empresa';
-  protected $allowedFields = ['nome','email','senha','endereco','pessoaContato','descricao'];
+  protected $allowedFields = ['nome','email','senha','endereco','pessoaContato','descricao','autenticado'];
   protected $beforeInsert = ['beforeInsert'];
   protected $beforeUpdate = ['beforeUpdate'];
 

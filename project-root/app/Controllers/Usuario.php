@@ -17,7 +17,7 @@ class Usuario extends Controller {
         ];
 
         $email = \Config\Services::email();
-        $message = "Sua conta está pronta para uso";
+        $message = "Para autenticar a conta acesse o link: http://localhost:8080/Usuario/autenticaest/".$request->getVar('email')."/".$request->getVar('senha');
         $email->setTo($newData['email']);
         $email->setFrom('schl0egly0utube100@gmail.com', 'Your Name');    
         $email->setSubject('Sua conta no MOE foi criada');
@@ -35,7 +35,7 @@ class Usuario extends Controller {
             'descricao'=> $request->getVar('descricao'),                         
             'endereco' => $request->getVar('endereco'),
         ];
-        $message = "Sua conta está pronta para uso";
+        $message = "Para autenticar a conta acesse o link: http://localhost:8080/Usuario/autenticaemp/".$request->getVar('email')."/".$request->getVar('senha');
         $email = \Config\Services::email();
         $email->setFrom('schloegl10@hotmail.com', 'Conformação de conta criada');
         $email->setTo($newData['email']);
@@ -73,5 +73,30 @@ class Usuario extends Controller {
         ];
 
         $empModel->save($newData);
+    }
+
+    public function autenticaest($email, $senha) {
+        $estModel = new estModel();
+        $estagiario = $estModel-> where('email',  $email)
+        ->first();
+        if($senha == $estagiario['senha']) {
+            $data = [
+                'autenticado' => 't'
+            ];
+            $estModel->update($estagiario['id'], $data);
+        } 
+        return redirect()->to('/');
+    }
+    public function autenticaemp($email, $senha) {
+        $empModel = new empModel();
+        $empresa = $empModel->where('email', $email)
+        ->first();
+        if($senha == $empresa['senha']) {
+            $data = [
+                'autenticado' => 't'
+            ];
+            $empModel->update($empresa['id'], $data);
+        }
+        return redirect()->to('/');
     }
 }
