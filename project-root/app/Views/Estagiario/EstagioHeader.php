@@ -110,7 +110,7 @@
 		.Nome {
 			width: 200px;
 		}
-		.Curso {
+		.curso {
 			width: 200px;
 			margin-right: 95px;
 		}

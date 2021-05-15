@@ -98,7 +98,7 @@ class Comeco extends Controller {
         if ($this->request->getMethod() == 'post') {
             $rulesEmp = [
                 'nome' => 'required',
-                'email' => 'required|valid_email|is_unique[Estagiario.email]|is_unique[Empresa.email]',
+                'email' => 'required|valid_email', //|is_unique[Estagiario.email]|is_unique[Empresa.email]',
                 'senha' => 'required|min_length[6]|regex_match[/[A-Z]/]|regex_match[/[0-9]/]|regex_match[/[^0-9^A-Z^a-z]/]',
                 'confsenha' => 'matches[senha]',
                 'endereco' => 'required',
@@ -109,7 +109,7 @@ class Comeco extends Controller {
                 $data['validation'] = $this->validator;
             } else {
                 Usuario::criaEmpresa($this->request);
-                return redirect()->to('/avisoEmail');
+                //return redirect()->to('/avisoEmail');
             }
         }
         echo view('cadastroEmp', $data);

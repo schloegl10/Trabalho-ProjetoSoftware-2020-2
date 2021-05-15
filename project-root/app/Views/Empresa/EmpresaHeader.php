@@ -202,16 +202,13 @@
 			text-align: center;
 			font-size: 40px;
 		}
-		.semestre {
-			
-		}
 		.horas {
 			margin-right: 100px;
 		}
 		.remuneracao {
 			margin-right: 50px;
 		}
-		.semestreinput {
+		.cursoinput {
 			width: 230px;
 			margin-right: 38px;
 		}

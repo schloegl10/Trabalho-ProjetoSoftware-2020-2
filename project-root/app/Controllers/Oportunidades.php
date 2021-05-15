@@ -13,7 +13,9 @@ class Oportunidades extends Controller {
         $session = session();
         $newData = [
             'idemp' => session()->get('id'),
-            'semestre' => $request->getVar('semestre'),
+            'minIntegralizacao' => $request->getVar('minIntegralizacao'),
+            'maxIntegralizacao' => $request->getVar('maxIntegralizacao'),
+            'curso' => $request->getVar('curso'),
             'remuneracao' => $request->getVar('remuneracao'),
             'horas' => $request->getVar('horas'),
             'descricao' => $request->getVar('descricao'),
@@ -41,7 +43,9 @@ class Oportunidades extends Controller {
         $newData = [
             'id' => $session->get('idOp'),
             'idemp' => session()->get('id'),
-            'semestre' => $request->getVar('semestre'),
+            'minIntegralizacao' => $request->getVar('minIntegralizacao'),
+            'maxIntegralizacao' => $request->getVar('maxIntegralizacao'),
+            'curso' => $request->getVar('curso'),
             'remuneracao' => $request->getVar('remuneracao'),
             'horas' => $request->getVar('horas'),
             'descricao' => $request->getVar('descricao'),

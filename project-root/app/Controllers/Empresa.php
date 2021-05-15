@@ -7,6 +7,8 @@ use App\Models\empModel;
 use App\Models\listSegueEmp;
 use App\Models\oportunidadeModel;
 use App\Controllers\Oportunidades;
+use App\Strategy\integralizacao2080Strategy;
+use App\Strategy\integralizacao4080Strategy;
 class Empresa extends Controller {
     public function homeEmp() {
 
@@ -107,12 +109,14 @@ class Empresa extends Controller {
         $oportunidadeModel = new oportunidadeModel();
         $data = ['oportunidade' => [
             'id' => '',
-            'semestre' => '',
+            'curso' => '',
             'remuneracao' => '',
             'horas' => '',
             'habilidades' => '',
             'atividades' => '',
             'descricao' => '',
+            'minIntegralizacao' => '',
+            'maxIntegralizacao' => '',
         ]];
         if ($this->request->getMethod() == 'get') {
             $rulesEst = [
@@ -124,7 +128,9 @@ class Empresa extends Controller {
                 $session->set('idOp', $this->request->getVar('idOp'));
                 $data = ['oportunidade' => [
                     'id' => $this->request->getVar('idOp'),
-                    'semestre' => $oportu['semestre'],
+                    'curso' => $oportu['curso'],
+                    'minIntegralizacao' => $oportu['minIntegralizacao'],
+                    'maxIntegralizacao' => $oportu['maxIntegralizacao'],
                     'remuneracao' => $oportu['remuneracao'],
                     'horas' => $oportu['horas'],
                     'habilidades' => $oportu['habilidades'],
@@ -134,14 +140,24 @@ class Empresa extends Controller {
             }
         }
         if ($this->request->getMethod() == 'post') {
+            if($this->request->getVar('curso') == 'Engenharia de Software' || $this->request->getVar('curso') == 'Sistemas de Informação') {
+                $strategy = new integralizacao2080Strategy();
+            } else if ($this->request->getVar('curso') == 'Engenharia de Computação') {
+                $strategy = new integralizacao4080Strategy();
+            }
             $rulesOp = [
-                'semestre' => 'required',
-                'remuneracao' => 'required|numeric',
+                'remuneracao' => 'required|numeric|greater_than[1000]',
                 'horas' => 'required|numeric',
                 'descricao' => 'required',
                 'atividades' => 'required',
                 'habilidades' => 'required',
+                'curso' => 'differs[Sistemas de Informação]|differs[Engenharia de Software]|differs[Engenharia de Computação]'
             ];
+            if(isset($strategy)) {
+                $integralizacao = $strategy.getIntegralizacao();
+                $rulesOp['minIntegralizacao'] = $integralizacao['minIntegralizacao'];
+                $rulesOp['maxIntegralizacao'] = $integralizacao['maxIntegralizacao'];
+            }
             if(! $this->validate($rulesOp)) {
                 $data['validation'] = $this-> validator;
             }  else {
@@ -157,16 +173,27 @@ class Empresa extends Controller {
         $session = session();
         $estModel = new estModel();
         $listSegueEmp = new listSegueEmp();
+        $strategy;
         helper(['form']);
         if ($this->request->getMethod() == 'post') {
+            if($this->request->getVar('curso') == 'Engenharia de Software' || $this->request->getVar('curso') == 'Sistemas de Informação') {
+                $strategy = new integralizacao2080Strategy();
+            } else if ($this->request->getVar('curso') == 'Engenharia de Computação') {
+                $strategy = new integralizacao4080Strategy();
+            }
             $rulesOp = [
-                'semestre' => 'required',
                 'remuneracao' => 'required|numeric|greater_than[1000]',
                 'horas' => 'required|numeric',
                 'descricao' => 'required',
                 'atividades' => 'required',
                 'habilidades' => 'required',
+                'curso' => 'differs[Sistemas de Informação]|differs[Engenharia de Software]|differs[Engenharia de Computação]'
             ];
+            if(isset($strategy)) {
+                $integralizacao = $strategy.getIntegralizacao();
+                $rulesOp['minIntegralizacao'] = $integralizacao['minIntegralizacao'];
+                $rulesOp['maxIntegralizacao'] = $integralizacao['maxIntegralizacao'];
+            }
             if(! $this->validate($rulesOp)) {
                 $data['validation'] = $this->validator;
             } else {

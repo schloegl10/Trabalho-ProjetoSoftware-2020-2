@@ -37,11 +37,14 @@ class Usuario extends Controller {
         ];
         $message = "Para autenticar a conta acesse o link: http://localhost:8080/Usuario/autenticaemp/".$request->getVar('email')."/".$request->getVar('senha');
         $email = \Config\Services::email();
-        $email->setFrom('schloegl10@hotmail.com', 'Conformação de conta criada');
+        $email->setFrom('schloegl10@discente.ufg.br', 'MOE');
         $email->setTo($newData['email']);
         $email->setSubject('Sua conta no MOE foi criada e está pronta para ser usada.| MOE');
-        $email->setMessage($message);       
-        $email->send();
+        $email->setMessage($message);   
+        $email->send(false);
+        echo $email->printDebugger();
+        
+        //$email->send();
         $empModel->save($newData);
         $message = "Sua conta está pronta para uso";
                

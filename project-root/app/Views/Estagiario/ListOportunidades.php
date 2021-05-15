@@ -3,9 +3,11 @@
 		<p class = 'tituloSeguir'>Oportunidade:</p>
 		<div class = 'item2'>
 				<p style='float:left' class='tag'>ID |</p>
-				<p style='float:left' class='tag'>Semestre |</p>
+				<p style='float:left' class='tag'>Curso |</p>
 				<p style='float:left' class='tag'>Remuneracao |</p>
 				<p style='float:left' class='tag'>Horas |</p>
+				<p style='float:left' class='tag'>Itegralizacao Minima |</p>
+				<p style='float:left' class='tag'>Itegralizacao Maxima |</p>
 				<p style='float:left' class='tag'>Empresa</p>
 		</div>
 		<div class='lista'>
@@ -14,9 +16,11 @@
 			<?php foreach($oportunidades as $oportunidade): ?>
 			<div class = 'item'>
 				<?= $oportunidade['id'] ?>
-    			<?= $oportunidade['semestre'] ?>
+    			<?= $oportunidade['curso'] ?>
 				<?= $oportunidade['remuneracao'] ?>
 				<?= $oportunidade['horas'] ?>
+				<?= $oportunidade['minIntegralizacao'] ?>
+				<?= $oportunidade['maxIntegralizacao'] ?>
 				<?= $oportunidade['empresa']['nome'] ?>
 			</div>
     		<?php endforeach; ?>
@@ -44,12 +48,16 @@
 				<?= $oportunidade['empresa']['id'] ?>
 				<p class='tag'>Nome empresa</p>
 				<?= $oportunidade['empresa']['nome'] ?>
-				<p class='tag'>Semestre</p>
-				<?= $oportunidadeSelec['semestre'] ?>
+				<p class='tag'>Curso</p>
+				<?= $oportunidadeSelec['curso'] ?>
 				<p class='tag'>Remuneracao</p>
 				<?= $oportunidadeSelec['remuneracao'] ?>
 				<p class='tag'>Horas</p>
 				<?= $oportunidadeSelec['horas'] ?>
+				<p class='tag'>Integralizacao Minima</p>
+				<?= $oportunidadeSelec['minIntegralizacao'] ?>
+				<p class='tag'>Integralizacao Maxima</p>
+				<?= $oportunidadeSelec['maxIntegralizacao'] ?>
 				<p  class='tag'>Habilidades</p>
 				<?= $oportunidadeSelec['habilidades'] ?>
 				<p  class='tag'>Atividades</p>

@@ -76,7 +76,7 @@
 		.Nome {
 			width: 200px;
 		}
-		.Curso {
+		.curso {
 			width: 200px;
 			margin-right: 95px;
 		}
@@ -152,7 +152,7 @@
 					<div class="texto">
 						<p style="float: left;" class="Nome">Nome:</p>
 						<p style="float: right;" class="Ano">Ano de ingresso:</p>
-						<p style="float: right;" class="Curso">Curso:</p>
+						<p style="float: right;" class="curso">Curso:</p>
 					</div>
 					<div class="campo">
 						<input class="nomeinput" name="nome" id="nome" type="text" placeholder="Nome" value="<?= set_value('nome') ?>"/>
