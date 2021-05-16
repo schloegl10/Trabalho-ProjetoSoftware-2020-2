@@ -19,8 +19,8 @@
     			<?= $oportunidade['curso'] ?>
 				<?= $oportunidade['remuneracao'] ?>
 				<?= $oportunidade['horas'] ?>
-				<?= $oportunidade['minIntegralizacao'] ?>
-				<?= $oportunidade['maxIntegralizacao'] ?>
+				<?= $oportunidade['minintegralizacao'] ?>
+				<?= $oportunidade['maxintegralizacao'] ?>
 				<?= $oportunidade['empresa']['nome'] ?>
 			</div>
     		<?php endforeach; ?>
@@ -55,9 +55,9 @@
 				<p class='tag'>Horas</p>
 				<?= $oportunidadeSelec['horas'] ?>
 				<p class='tag'>Integralizacao Minima</p>
-				<?= $oportunidadeSelec['minIntegralizacao'] ?>
+				<?= $oportunidadeSelec['minintegralizacao'] ?>
 				<p class='tag'>Integralizacao Maxima</p>
-				<?= $oportunidadeSelec['maxIntegralizacao'] ?>
+				<?= $oportunidadeSelec['maxintegralizacao'] ?>
 				<p  class='tag'>Habilidades</p>
 				<?= $oportunidadeSelec['habilidades'] ?>
 				<p  class='tag'>Atividades</p>

@@ -12,13 +12,6 @@ class Comeco extends Controller {
         
         helper(['form']);
         if ($this->request->getMethod() == 'post') {
-            $rules = [
-                'email' => 'min_length[6]|max_length[3]',
-                'senha' => 'min_length[6]|max_length[3]'
-                ];
-            if(! $this->validate($rules)) {
-                $validation = $this-> validator;
-            }
             $senha =  $this->request->getVar('senha');
             $estModel = new estModel();
             $empModel = new empModel();
@@ -26,19 +19,14 @@ class Comeco extends Controller {
                       ->first();
             $empresa = $empModel-> where('email', $this->request->getVar('email'))
                       ->first();
-            if(!$estagiario && !$empresa) {
-                $data['validation'] = $validation;
-            } else if($estagiario && $senha != $estagiario['senha']) {
-                $data['validation'] = $validation;
-            } else if($empresa && $senha != $empresa['senha']) {
-                $data['validation'] = $validation;
-            } else if($estagiario && $senha == $estagiario['senha']) {
+            
+            if($estagiario && $senha == $estagiario['senha']) {
                 if($estagiario['autenticado'] == 't') {
                 $this->setUserSession($estagiario, 1);
                 return redirect()->to('/Estagiario/Home');
                 }
             } else if($empresa && $senha == $empresa['senha']) {
-                if($estagiario['autenticado']  == 't') {
+                if($empresa['autenticado']  == 't') {
                 $this->setUserSession($empresa, 0);
                 return redirect()->to('/Empresa/Home');
                 }

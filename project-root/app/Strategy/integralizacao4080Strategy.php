@@ -1,11 +1,13 @@
 <?php
+namespace App\Strategy;
+use App\Strategy\integralizacaoEstagiarioStrategy;
 
-class integralizacao4080Strategy extends integralizacaoEstagiarioStrategy {
+class integralizacao4080Strategy implements  integralizacaoEstagiarioStrategy {
     public function getIntegralizacao() {
         $rulesEst = [
-            'minIntegralizacao' => 'required|greater_than[40]',
-            'maxIntegralizacao' => 'required|less_than[80]'
+            'minintegralizacao' => 'required|greater_than[40]',
+            'maxintegralizacao' => 'required|less_than[80]'
         ];
-        return $ruleEst;
+        return $rulesEst;
     }
 }

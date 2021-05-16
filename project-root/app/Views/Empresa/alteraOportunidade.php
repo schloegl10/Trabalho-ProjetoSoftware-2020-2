@@ -14,17 +14,17 @@
 						<p style="float: right;"class="horas">Quantidade de horas:</p>
 					</div>
 					<div class="campo">
-						<input class="cursoinput" name="curso" id="curso" type="text" placeholder="curso" value="<?= set_value('curso') ?>"/>
-						<input class="horasinput" name="horas" id="horas" type="text" placeholder="Horas" value="<?= set_value('horas') ?>"/>
-						<input class="remuneracaoinput" name="remuneracao" id="remuneracao" type="text" placeholder="R$ XXXX,XX" value="<?= set_value('remuneração') ?>"/>
+						<input class="cursoinput" name="curso" id="curso" type="text" placeholder="curso" value="<?= set_value('curso' , $oportunidade['curso']) ?>"/>
+						<input class="horasinput" name="horas" id="horas" type="text" placeholder="Horas" value="<?= set_value('horas' , $oportunidade['horas']) ?>"/>
+						<input class="remuneracaoinput" name="remuneracao" id="remuneracao" type="text" placeholder="R$ XXXX,XX" value="<?= set_value('remuneracao' , $oportunidade['remuneracao']) ?>"/>
 					</div>
 					<div class="texto">
-						<p style="float: left;" class="minIntegralizacao">Integralizacao Minima:</p>
-						<p style="float: right;"class="maxIntegralizacao">Integralizacao Maxima:</p>
+						<p style="float: left;" class="minintegralizacao">Integralizacao Minima:</p>
+						<p style="float: right;"class="maxintegralizacao">Integralizacao Maxima:</p>
 					</div>
 					<div class="campo">
-						<input class="minIntegralizacaoinput" name="minIntegralizacao" id="minIntegralizacao" type="text" placeholder="Integralizacao Minima" value="<?= set_value('minIntegralizacao') ?>"/>
-						<input class="maxIntegralizacaoinput" name="maxIntegralizacao" id="maxIntegralizacao" type="text" placeholder="Integralizacao Maxima" value="<?= set_value('maxIntegralizacao') ?>"/>
+						<input class="minintegralizacaoinput" name="minintegralizacao" id="minintegralizacao" type="text" placeholder="Integralizacao Minima" value="<?= set_value('minintegralizacao' , $oportunidade['minintegralizacao']) ?>"/>
+						<input class="maxintegralizacaoinput" name="maxintegralizacao" id="maxintegralizacao" type="text" placeholder="Integralizacao Maxima" value="<?= set_value('maxintegralizacao' , $oportunidade['maxintegralizacao']) ?>"/>
 					</div>
 					<p class="descricao">Descrição resumida da vaga:</p>
 					<textarea name="descricao" class="descinput" rows = "6" cols = "111"><?php if (isset($oportunidade['descricao'])): ?><?= $oportunidade['descricao'] ?><?php else: ?>Adicione uma breve descrição da vaga...<?php endif; ?></textarea>

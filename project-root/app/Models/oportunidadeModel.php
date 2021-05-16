@@ -4,7 +4,7 @@ use CodeIgniter\Model;
 
 class oportunidadeModel extends Model{
   protected $table = 'Oportunidades';
-  protected $allowedFields = ['curso','remuneracao','horas','habilidades','atividades','descricao','idemp','minIntegralizacao','maxIntegralizacao'];
+  protected $allowedFields = ['curso','remuneracao','horas','habilidades','atividades','descricao','idemp','minintegralizacao','maxintegralizacao'];
   protected $beforeInsert = ['beforeInsert'];
   protected $beforeUpdate = ['beforeUpdate'];
 
