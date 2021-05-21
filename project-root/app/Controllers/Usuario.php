@@ -44,7 +44,7 @@ class Usuario extends Controller {
         $email->send(false);
         echo $email->printDebugger();
         
-        //$email->send();
+        $email->send();
         $empModel->save($newData);
         $message = "Sua conta está pronta para uso";
                
