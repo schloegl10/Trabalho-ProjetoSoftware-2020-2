@@ -2,7 +2,7 @@
 namespace App\Controllers;
 
 interface Subject {
-    public function addObservador($newData);
-    public function removeObservador($idEstagiario, $idEmpresa);
-    public function notificaObservadores();
+    public static function addObservador($newData);
+    public static function removeObservador($idEstagiario, $idEmpresa);
+    public static function notificaObservadores($minintegralizacao, $maxintegralizacao);
 }

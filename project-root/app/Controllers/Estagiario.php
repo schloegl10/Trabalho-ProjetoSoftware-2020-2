@@ -96,21 +96,23 @@ class Estagiario extends Controller implements Observer  {
     }
 
     public function alteraDados() {
-        $data = [];
+        $cursoModel = new cursoModel();
+        $curso = $cursoModel->findAll();
         helper(['form']);
         $session = session();
         $estModel = new estModel();
         $cursoModel = new cursoModel();
         $user = $estModel->find($session->get('id'));
-        $data = ['user' => [
-            'id' => $user['id'],
-            'nome' => $user['nome'],
-            'senha' => $user['senha'],
-            'email' => $user['email'],
-            'ano' => $user['ano'],
-            'curso' => $user['curso'],
-            'curriculo' => $user['curriculo'],
-            'cursos' => $cursoModel->findAll(),
+        $data = [
+            'cursos' => $curso,
+            'user' => [
+                'id' => $user['id'],
+                'nome' => $user['nome'],
+                'senha' => $user['senha'],
+                'email' => $user['email'],
+                'ano' => $user['ano'],
+                'curso' => $user['curso'],
+                'curriculo' => $user['curriculo'],
         ]];
         if ($this->request->getMethod() == 'post') {
             $rulesEst = [
@@ -133,11 +135,12 @@ class Estagiario extends Controller implements Observer  {
         echo view('/Estagiario/alteraDados', $data);
     }
 
-    public function notifica($estagiario) {
+    public static function notifica($estagiario) {
+        $session = session();
         $message = "A empresa".$session->get('nome')."criou uma nova oportunidade de estágio vá lá ver";
         $email = \Config\Services::email();
         $email->setFrom('schloegl10@hotmail.com', 'MOE');
-        $email->setTo($seguidor['email']);
+        $email->setTo($estagiario['email']);
         $email->setSubject('Nova oportunidade de estágio| MOE');
         $email->setMessage($message);
         $email->send();

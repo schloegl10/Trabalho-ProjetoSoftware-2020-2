@@ -158,7 +158,9 @@
 						<input class="nomeinput" name="nome" id="nome" type="text" placeholder="Nome" value="<?= set_value('nome') ?>"/>
 						<select class="cursoinput" name="curso" id="curso">
 							<?php foreach($cursos as $curso) {
-								echo "<option value='$curso['id']'><?= $curso['nome'] ?></option>";
+								$cursoNome = $curso['nome'];
+								$cursoId = $curso['id'];
+								echo "<option value='" . $cursoId . "'>" . $cursoNome . "</option>";
 							} ?>
   						</select>
 						<input class="anoinput" name="ano" id="ano" type="text" placeholder="20XX" value="<?= set_value('ano') ?>"/>

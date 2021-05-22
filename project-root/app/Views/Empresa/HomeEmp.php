@@ -81,7 +81,7 @@
 			<div class = 'item'>
 				<?= $estagiario['id'] ?>
     			<?= $estagiario['nome'] ?>
-				<?= $estagiario['curso']['nome'] ?>
+				<?= $estagiario['curso'] ?>
 				<?= $estagiario['ano'] ?>
 			</div>
     		<?php endforeach; ?>
@@ -108,7 +108,7 @@
 				<p class='tag'>Nome</p>
 				<?= $estagSelec['nome'] ?>
 				<p class='tag'>Curso</p>
-				<?= $estagSelec['curso']['nome'] ?>
+				<?= $estagSelec['curso'] ?>
 				<p class='tag'>Ano</p>
 				<?= $estagSelec['ano'] ?>
 				<p  class='tag'>Curriculo</p>

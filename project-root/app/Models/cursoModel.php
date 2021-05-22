@@ -2,7 +2,7 @@
 
 use CodeIgniter\Model;
 
-class empModel extends Model{
+class cursoModel extends Model{
   protected $table = 'Curso';
   protected $allowedFields = ['nome','integralizacao'];
   protected $beforeInsert = ['beforeInsert'];

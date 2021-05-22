@@ -57,8 +57,10 @@ class Comeco extends Controller {
         echo view('avisoEmail');
     }
     public function cadastroEst() {
+        
         $cursoModel = new cursoModel();
-        $data = ['cursos' = $cursoModel->findAll()];
+        $curso = $cursoModel->findAll();
+        $data = ['cursos' => $curso];
         $session = session();
         helper(['form']);
         if ($this->request->getMethod() == 'post') {

@@ -13,7 +13,7 @@ use App\Strategy\integralizacao2080Strategy;
 use App\Strategy\integralizacao4080Strategy;
 use App\Controllers\Subject;
 class Empresa extends Controller implements Subject {
-    
+
     public function homeEmp() {
         $data = [];
         helper(['form']);
@@ -28,7 +28,6 @@ class Empresa extends Controller implements Subject {
         $estagiarioIds = $listSegueEmp->where('idEmp',  $userId)->findAll();
         $estagiarioNaLista = false;
         $data = Consulta::listEstagiarios();
-
         if ($this->request->getMethod() == 'post') {
             $rulesEst = [
                 'idEmp' => 'required',
@@ -59,6 +58,7 @@ class Empresa extends Controller implements Subject {
                 if($estagiarioNaLista) {
                     if(null !== $estModel->find($this->request->getVar('idEst')))  {
                         $data['estagSelec'] =  $estModel->find($this->request->getVar('idEst'));
+                        $data['estagSelec']['curso'] = $cursoModel->find($data['estagSelec']['curso'])['nome'];
                     }
                 }
             }
@@ -150,7 +150,7 @@ class Empresa extends Controller implements Subject {
                 $data['validation'] = $this-> validator;
             }  else {
                 Oportunidades::alteraOportunidade($this->request);
-                notificaObservadores($this->request->getVar('minintegralizacao'), $this->request->getVar('maxintegralizacao'));
+                Empresa::notificaObservadores($this->request->getVar('minintegralizacao'), $this->request->getVar('maxintegralizacao'));
                 return redirect()->to('/Empresa/alteraOportunidade');
             }
         }
@@ -179,7 +179,7 @@ class Empresa extends Controller implements Subject {
             } else {
                 $oportunidadeModel = new oportunidadeModel();
                 Oportunidades::criaOportunidade($this->request);
-                notificaObservadores($this->request->getVar('minintegralizacao'), $this->request->getVar('maxintegralizacao'));
+                Empresa::notificaObservadores($this->request->getVar('minintegralizacao'), $this->request->getVar('maxintegralizacao'));
                 return redirect()->to('/Empresa/Home');
             }
         }
@@ -187,15 +187,18 @@ class Empresa extends Controller implements Subject {
         echo view('/Empresa/criaOportunidade', $data);
     }
 
-    public function addObservador($newData) {
+    public static function addObservador($newData) {
+        $listSegueEmp = new listSegueEmp();
         $listSegueEmp->save($newData);
     }
 
-    public function removeObservador($idEstagiario, $idEmpresa) {
+    public static function removeObservador($idEstagiario, $idEmpresa) {
+        $listSegueEmp = new listSegueEmp();
         $listSegueEmp->where('idEst',  $idEstagiario)->where('idEmp', $idEmpresa)->delete();
     }
 
-    public function notificaObservadores($minintegralizacao, $maxintegralizacao) {
+    public static function notificaObservadores($minintegralizacao, $maxintegralizacao) {
+        $estModel = new estModel();
         $listSegueEmp = new listSegueEmp();
         $cursoModel = new cursoModel();
         $estagiariosIds = $listSegueEmp->where('idEmp', session()->get('id'))->findAll();
@@ -212,7 +215,7 @@ class Empresa extends Controller implements Subject {
             } else {
                 $strategy = new integralizacao4080Strategy();
             }
-            $integralizacao = $strategy.getIntegralizacao();
+            $integralizacao = $strategy->getIntegralizacao();
             if($integralizacao['min'] <= $minintegralizacao && $integralizacao['max'] >= $maxintegralizacao) {
                 array_push($seguidoresEstrategiaValida, $seguidor);          
             }

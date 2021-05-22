@@ -2,5 +2,5 @@
 namespace App\Controllers;
 
 interface Observer {
-    public function notifica($estagiario);
+    public static  function notifica($estagiario);
 }

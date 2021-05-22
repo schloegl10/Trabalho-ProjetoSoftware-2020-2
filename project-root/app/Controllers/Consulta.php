@@ -7,9 +7,11 @@ use App\Models\empModel;
 use App\Models\listSegueEmp;
 use App\Models\oportunidadeModel;
 use App\Models\cursoModel;
+use App\Strategy\integralizacao2080Strategy;
+use App\Strategy\integralizacao4080Strategy;
 
-class Comeco extends Controller {
-    public function listOportunidades() {
+class Consulta extends Controller {
+    public static function listOportunidades() {
         $data = [];
         $session = session();
         $oportunidadeModel = new oportunidadeModel();
@@ -27,7 +29,7 @@ class Comeco extends Controller {
         } else {
             $strategy = new integralizacao4080Strategy();
         }
-        $integralizacao = $strategy.getIntegralizacao();
+        $integralizacao = $strategy->getIntegralizacao();
         $oportunidades = $oportunidadeModel->findAll();
         $a = 0;
         for($i = 0; $i < count($oportunidades); $i++) {
@@ -40,19 +42,20 @@ class Comeco extends Controller {
         return $data;
     }
 
-    public function listEstagiarios() {
+    public static function listEstagiarios() {
         $session = session();
         $data = [];
         $listSegueEmp = new listSegueEmp();
         $empModel = new empModel();
         $cursoModel = new cursoModel();
         $userId = $session->get('id'); 
+        $oportunidadeModel = new oportunidadeModel();
         $data['oportunidades'] = $oportunidadeModel->where('idemp', $userId)->find();
         $estModel = new estModel();
         $estagiarioIds = $listSegueEmp->where('idEmp',  $userId)->findAll();
         for($i = 0; $i < count($estagiarioIds); ++$i) {
             $data['estagiarios'][$i] = $estModel->find($estagiarioIds[$i]['idEst']);
-            $data['estagiarios'][$i]['curso'] = $cursoModel->find($['estagiarios'][$i]['curso']);
+            $data['estagiarios'][$i]['curso'] = $cursoModel->find($data['estagiarios'][$i]['curso'])['nome'];
         }
         for($i = 0; $i < count($data['oportunidades']); ++$i) {
             $data['oportunidades'][$i]['empresa'] = $empModel->find($data['oportunidades'][$i]['idemp']);
@@ -60,8 +63,9 @@ class Comeco extends Controller {
         return $data;
     }   
 
-    public function listEmpresas() {
+    public static function listEmpresas() {
         $data = [];
+        $empModel = new empModel();
         $data['empresas'] = $empModel->findAll();
         return $data;
     }
