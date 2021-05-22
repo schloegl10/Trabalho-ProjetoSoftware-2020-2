@@ -4,7 +4,6 @@
 		<p class = 'tituloListaOportunidades'>Oportunidades:</p>
 		<div class = 'item2'>
 				<p style='float:left' class='tag'>ID |</p>
-				<p style='float:left' class='tag'>Curso |</p>
 				<p style='float:left' class='tag'>Remuneracao |</p>
 				<p style='float:left' class='tag'>Horas |</p>
 				<p style='float:left' class='tag'>Itegralizacao Minima |</p>
@@ -17,7 +16,6 @@
 			<?php foreach($oportunidades as $oportunidade): ?>
 			<div class = 'item'>
 				<?= $oportunidade['id'] ?>
-    			<?= $oportunidade['curso'] ?>
 				<?= $oportunidade['remuneracao'] ?>
 				<?= $oportunidade['horas'] ?>
 				<?= $oportunidade['minintegralizacao'] ?>
@@ -49,8 +47,6 @@
 				<?= $oportunidadeSelec['idemp'] ?>
 				<p class='tag'>Nome empresa</p>
 				<?= $oportunidadeSelec['nomeEmp'] ?>
-				<p class='tag'>Curso</p>
-				<?= $oportunidadeSelec['curso'] ?>
 				<p class='tag'>Remuneracao</p>
 				<?= $oportunidadeSelec['remuneracao'] ?>
 				<p class='tag'>Horas</p>
@@ -85,7 +81,7 @@
 			<div class = 'item'>
 				<?= $estagiario['id'] ?>
     			<?= $estagiario['nome'] ?>
-				<?= $estagiario['curso'] ?>
+				<?= $estagiario['curso']['nome'] ?>
 				<?= $estagiario['ano'] ?>
 			</div>
     		<?php endforeach; ?>
@@ -112,7 +108,7 @@
 				<p class='tag'>Nome</p>
 				<?= $estagSelec['nome'] ?>
 				<p class='tag'>Curso</p>
-				<?= $estagSelec['curso'] ?>
+				<?= $estagSelec['curso']['nome'] ?>
 				<p class='tag'>Ano</p>
 				<?= $estagSelec['ano'] ?>
 				<p  class='tag'>Curriculo</p>

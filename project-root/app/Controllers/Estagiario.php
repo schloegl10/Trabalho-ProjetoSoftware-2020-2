@@ -4,9 +4,15 @@ namespace App\Controllers;
 use CodeIgniter\Controller;
 use App\Models\estModel;
 use App\Models\empModel;
+use App\Models\cursoModel;
 use App\Models\listSegueEmp;
 use App\Models\oportunidadeModel;
-class Estagiario extends Controller {
+use App\Controllers\Observer;
+use App\Controllers\Empresa;
+use App\Controllers\Consulta;
+
+class Estagiario extends Controller implements Observer  {
+
     public function homeEst() {
         $data = ['empresas' => [],
         ];
@@ -26,7 +32,7 @@ class Estagiario extends Controller {
             if(! $this->validate($rulesEst)) {
                 $data['validation'] = $this-> validator;
             } else {
-                $listSegueEmp->where('idEst',  $userId)->where('idEmp', $this->request->getVar('idEmp'))->delete();
+                Empresa::removeObservador($userId, $this->request->getVar('idEmp'));
                 return redirect()->to('/Estagiario/Home');
             }
         }
@@ -41,7 +47,7 @@ class Estagiario extends Controller {
         $empModel = new empModel();
         $listSegueEmp = new listSegueEmp();
         $userId = $session->get('id');
-        $data['empresas'] = $empModel->findAll();
+        $data['empresas'] = Consulta::listEmpresas()['empresas'];
         if ($this->request->getMethod() == 'post') {
             $rulesEst = [
                 'idEmp' => 'required',
@@ -60,7 +66,7 @@ class Estagiario extends Controller {
                  'idEst' => $userId,
                  'idEmp' =>  $session->get('idEmp'),
             ];
-            $listSegueEmp->save($newData);
+            Empresa::addObservador($newData);
             session()->set('idEmp', 0);
             return redirect()->to('/Estagiario/buscaEmpresas');
         }
@@ -73,14 +79,8 @@ class Estagiario extends Controller {
         helper(['form']);
         $session = session();
         $oportunidadeModel = new oportunidadeModel();
-        $listSegueEmp = new listSegueEmp();
-        $empModel = new empModel();
-        $userId = $session->get('id');
-        $data['oportunidades'] = $oportunidadeModel->findAll();
-        for($i = 0; $i < count($data['oportunidades']); ++$i) {
-            $data['oportunidades'][$i]['empresa'] = $empModel->find($data['oportunidades'][$i]['idemp']);
-        }
-           
+        
+        $data = Consulta::listOportunidades();
         if ($this->request->getMethod() == 'post') {
             $rulesEst = [
                 'idEmp' => 'required',
@@ -100,6 +100,7 @@ class Estagiario extends Controller {
         helper(['form']);
         $session = session();
         $estModel = new estModel();
+        $cursoModel = new cursoModel();
         $user = $estModel->find($session->get('id'));
         $data = ['user' => [
             'id' => $user['id'],
@@ -109,6 +110,7 @@ class Estagiario extends Controller {
             'ano' => $user['ano'],
             'curso' => $user['curso'],
             'curriculo' => $user['curriculo'],
+            'cursos' => $cursoModel->findAll(),
         ]];
         if ($this->request->getMethod() == 'post') {
             $rulesEst = [
@@ -129,5 +131,15 @@ class Estagiario extends Controller {
         }
         echo view('/Estagiario/EstagioHeader');
         echo view('/Estagiario/alteraDados', $data);
+    }
+
+    public function notifica($estagiario) {
+        $message = "A empresa".$session->get('nome')."criou uma nova oportunidade de estágio vá lá ver";
+        $email = \Config\Services::email();
+        $email->setFrom('schloegl10@hotmail.com', 'MOE');
+        $email->setTo($seguidor['email']);
+        $email->setSubject('Nova oportunidade de estágio| MOE');
+        $email->setMessage($message);
+        $email->send();
     }
 }

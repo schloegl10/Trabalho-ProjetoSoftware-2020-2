@@ -26,7 +26,11 @@
 					</div>
 					<div class="campo">
 						<input class="nomeinput" name="nome" id="nome" type="text" placeholder="Nome" value="<?= set_value('nome' , $user['nome']) ?>"/>
-						<input class="cursoinput" name="curso" id="curso" type="text" placeholder="Curso" value="<?= set_value('curso' , $user['curso']) ?>"/>
+						<select class="cursoinput" name="curso" id="curso">
+							<?php foreach($cursos as $curso) {
+								echo "<option value='$curso['id']'><?= $curso['nome'] ?></option>";
+							} ?>
+  						</select>
 						<input class="anoinput" name="ano" id="ano" type="text" placeholder="20XX" value="<?= set_value('ano' , $user['ano']) ?>"/>
 					
 					</div>

@@ -8,7 +8,6 @@ class listSegueEmp extends Model {
   protected $beforeInsert = ['beforeInsert'];
   protected $beforeUpdate = ['beforeUpdate'];
 
-  //'curso','ano','curriculo'
   protected function beforeInsert(array $data) {
     return $data;
   }

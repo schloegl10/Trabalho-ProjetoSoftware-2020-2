@@ -2,9 +2,9 @@
 
 use CodeIgniter\Model;
 
-class oportunidadeModel extends Model{
-  protected $table = 'Oportunidades';
-  protected $allowedFields = ['remuneracao','horas','habilidades','atividades','descricao','idemp','minintegralizacao','maxintegralizacao'];
+class empModel extends Model{
+  protected $table = 'Curso';
+  protected $allowedFields = ['nome','integralizacao'];
   protected $beforeInsert = ['beforeInsert'];
   protected $beforeUpdate = ['beforeUpdate'];
 

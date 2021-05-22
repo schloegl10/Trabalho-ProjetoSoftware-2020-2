@@ -3,12 +3,10 @@
 			<p class = 'tituloAlterarDados'>Cadastro de Oportunidade de Estágio</p>
 				<div class="divEmpresa">
 					<div class="texto">
-						<p style="float: left;" class="curso">Curso:</p>
 						<p style="float: right;"class="remuneracao">Remuneração:</p>
 						<p style="float: right;"class="horas">Quantidade de horas:</p>
 					</div>
 					<div class="campo">
-						<input class="cursoinput" name="curso" id="curso" type="text" placeholder="Curso" value="<?= set_value('curso') ?>"/>
 						<input class="horasinput" name="horas" id="horas" type="text" placeholder="Horas" value="<?= set_value('horas') ?>"/>
 						<input class="remuneracaoinput" name="remuneracao" id="remuneracao" type="text" placeholder="R$ XXXX,XX" value="<?= set_value('remuneracao') ?>"/>
 					</div>

@@ -3,7 +3,6 @@
 		<p class = 'tituloSeguir'>Oportunidade:</p>
 		<div class = 'item2'>
 				<p style='float:left' class='tag'>ID |</p>
-				<p style='float:left' class='tag'>Curso |</p>
 				<p style='float:left' class='tag'>Remuneracao |</p>
 				<p style='float:left' class='tag'>Horas |</p>
 				<p style='float:left' class='tag'>Itegralizacao Minima |</p>
@@ -16,7 +15,6 @@
 			<?php foreach($oportunidades as $oportunidade): ?>
 			<div class = 'item'>
 				<?= $oportunidade['id'] ?>
-    			<?= $oportunidade['curso'] ?>
 				<?= $oportunidade['remuneracao'] ?>
 				<?= $oportunidade['horas'] ?>
 				<?= $oportunidade['minintegralizacao'] ?>
@@ -48,8 +46,6 @@
 				<?= $oportunidade['empresa']['id'] ?>
 				<p class='tag'>Nome empresa</p>
 				<?= $oportunidade['empresa']['nome'] ?>
-				<p class='tag'>Curso</p>
-				<?= $oportunidadeSelec['curso'] ?>
 				<p class='tag'>Remuneracao</p>
 				<?= $oportunidadeSelec['remuneracao'] ?>
 				<p class='tag'>Horas</p>
