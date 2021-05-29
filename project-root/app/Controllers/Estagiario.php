@@ -143,6 +143,8 @@ class Estagiario extends Controller implements Observer  {
         $email->setTo($estagiario['email']);
         $email->setSubject('Nova oportunidade de estágio| MOE');
         $email->setMessage($message);
+        $email->send(false);
+        echo $email->printDebugger();
         $email->send();
     }
 }
