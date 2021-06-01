@@ -53,9 +53,14 @@ class Consulta extends Controller {
         $data['oportunidades'] = $oportunidadeModel->where('idemp', $userId)->find();
         $estModel = new estModel();
         $estagiarioIds = $listSegueEmp->where('idEmp',  $userId)->findAll();
-        for($i = 0; $i < count($estagiarioIds); ++$i) {
-            $data['estagiarios'][$i] = $estModel->find($estagiarioIds[$i]['idEst']);
-            $data['estagiarios'][$i]['curso'] = $cursoModel->find($data['estagiarios'][$i]['curso'])['nome'];
+        if(count($estagiarioIds) > 0) {
+            for($i = 0; $i < count($estagiarioIds); ++$i) {
+                $data['estagiarios'][$i] = $estModel->find($estagiarioIds[$i]['idEst']);
+                $curso = $cursoModel->find($data['estagiarios'][$i]['curso']);
+                $data['estagiarios'][$i]['curso'] = $curso['nome'];
+            }
+        } else {
+            $data['estagiarios'] = [];
         }
         for($i = 0; $i < count($data['oportunidades']); ++$i) {
             $data['oportunidades'][$i]['empresa'] = $empModel->find($data['oportunidades'][$i]['idemp']);

@@ -14,15 +14,14 @@ class Usuario extends Controller {
             'curso' => $request->getVar('curso'),
             'ano' => $request->getVar('ano'),
             'curriculo' => $request->getVar('curriculo'),
+            'autenticado' => 'f',
         ];
-
-        $email = \Config\Services::email();
+        $from = "schloegl10@discente.ufg.br";
+        $to = $newData['email'];
+        $subject = "Sua conta no MOE foi criada";
         $message = "Para autenticar a conta acesse o link: http://localhost:8080/Usuario/autenticaest/".$request->getVar('email')."/".$request->getVar('senha');
-        $email->setTo($newData['email']);
-        $email->setFrom('schl0egly0utube100@gmail.com', 'Your Name');    
-        $email->setSubject('Sua conta no MOE foi criada');
-        $email->setMessage($message);   
-        $email->send();
+        $headers = [ "From: $from" ];
+        mail( $to, $subject, $message, implode( '\r\n', $headers ) );
         $estModel->save($newData);
     }
     public static function criaEmpresa($request) {        
@@ -34,19 +33,15 @@ class Usuario extends Controller {
             'pessoaContato' => $request->getVar('pessoaContato'),
             'descricao'=> $request->getVar('descricao'),                         
             'endereco' => $request->getVar('endereco'),
+            'autenticado' => 'f',
         ];
+        $from = "schloegl10@discente.ufg.br";
+        $to = $newData['email'];
+        $subject = "Sua conta no MOE foi criada";
         $message = "Para autenticar a conta acesse o link: http://localhost:8080/Usuario/autenticaemp/".$request->getVar('email')."/".$request->getVar('senha');
-        $email = \Config\Services::email();
-        $email->setFrom('schloegl10@discente.ufg.br', 'MOE');
-        $email->setTo($newData['email']);
-        $email->setSubject('Sua conta no MOE foi criada e está pronta para ser usada.| MOE');
-        $email->setMessage($message);   
-        $email->send(false);
-        echo $email->printDebugger();
-        
-        $email->send();
+        $headers = [ "From: $from" ];
+        mail( $to, $subject, $message, implode( '\r\n', $headers ) );
         $empModel->save($newData);
-        $message = "Sua conta está pronta para uso";
                
     }
     public static function alteraEstagiario($request) {

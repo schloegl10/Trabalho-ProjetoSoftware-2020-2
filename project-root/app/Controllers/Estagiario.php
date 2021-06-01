@@ -137,14 +137,12 @@ class Estagiario extends Controller implements Observer  {
 
     public static function notifica($estagiario) {
         $session = session();
-        $message = "A empresa".$session->get('nome')."criou uma nova oportunidade de estágio vá lá ver";
-        $email = \Config\Services::email();
-        $email->setFrom('schloegl10@hotmail.com', 'MOE');
-        $email->setTo($estagiario['email']);
-        $email->setSubject('Nova oportunidade de estágio| MOE');
-        $email->setMessage($message);
-        $email->send(false);
-        echo $email->printDebugger();
-        $email->send();
+        $message = "A empresa ".$session->get('nome')." criou uma nova oportunidade de estágio vá lá ver";
+
+        $from = "schloegl10@discente.ufg.br";
+        $to = $estagiario['email'];
+        $subject = "Nova oportunidade de estágio| MOE";
+        $headers = [ "From: $from" ];
+        mail( $to, $subject, $message, implode( '\r\n', $headers ) );
     }
 }
